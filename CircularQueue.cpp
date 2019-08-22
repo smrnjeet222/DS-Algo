@@ -6,6 +6,7 @@ class CircularQueue{
         int front;
         int rear;
         int size;
+        int Count = 0;
         int *arr = new int [size];
 
     public:
@@ -43,6 +44,7 @@ class CircularQueue{
                 rear = (rear + 1) % size ;
                 arr[rear] = val;
             }
+            Count++;
 
         }
         int dequeue(){
@@ -54,17 +56,19 @@ class CircularQueue{
                 x = arr[front];
                 arr[front] = 0;
                 rear = front = -1;
+                Count--;
                 return x;
             }
             else{
                 x = arr[front];
                 arr[front] = 0;
                 front = (front + 1) % size;
+                Count--;
                 return x;
             }
         }
         int count(){
-            return (rear - front + 1);
+            return (Count);
         }
         void display(){
             for (int i = 0 ; i<size  ; i++){
@@ -91,6 +95,8 @@ int main(){
     Q.enqueue(2);
 
     Q.display();
+
+    cout<< endl << Q.count() << endl;
 
     return 0;
 
