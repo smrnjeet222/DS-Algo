@@ -5,13 +5,15 @@ class Queue{
     private:
         int front;
         int rear;
-        int arr[5];
+        int size;
+        int *arr = new int [size];
 
     public:
-        Queue(){
+        Queue(int s){
             front = -1;
             rear = -1;
-            for (int i=0 ; i<5 ; i++){
+            size = s;
+            for (int i=0 ; i<s ; i++){
                 arr[i] = 0;
             }
         }
@@ -65,7 +67,7 @@ class Queue{
             return (rear - front + 1);
         }
         void display(){
-            for (int i = 0 ; i<5  ; i++){
+            for (int i = 0 ; i<size  ; i++){
                 cout << arr[i] << " ";
             }
         }
@@ -73,7 +75,10 @@ class Queue{
 };
 
 int main(){
-    Queue Q;
+    int s;
+    cout<< "Enter Size of the Queue: ";
+    cin>>s;
+    Queue Q(s);
 
     Q.enqueue(23);
     Q.enqueue(48);
