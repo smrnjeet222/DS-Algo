@@ -51,7 +51,7 @@ class node{
             else{
                 int jump = 1;
                 node* temp = head;
-                while (jump < (pos-1)){
+                while (jump < pos){
                    temp = temp->next;
                    jump++; 
                 }
