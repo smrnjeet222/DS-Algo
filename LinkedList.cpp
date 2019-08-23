@@ -61,6 +61,44 @@ class node{
                 return;  
             }
         }
+        void DeleteHead(node* &head ){
+            if (head==NULL){
+                return;
+            }
+            else{
+                node * temp = head;
+                head = temp->next;
+                delete temp;
+                return;
+            }
+        }
+        void DeleteTail(node* &head){
+            //pass
+        }
+        void Delete(node* &head , int pos){
+            if (pos==0)
+                DeleteHead(head);
+            else if (pos >= len(head)){
+               // DeleteTail(head); 
+               cout<<"Error";
+            }
+            else {
+                int jump = 1;
+                node* temp = head;
+                
+                while (jump < pos){
+                    temp = temp->next;
+                    jump++; 
+                }
+                node* p = temp->next;
+                temp->next = p->next;
+                delete p;
+                return;     
+            }
+            
+
+        }
+
         void print(node*head){
     
             while(head!=NULL){
@@ -83,6 +121,8 @@ int main(){
     N.InsertAtTail(head , 12);
     N.InsertAtAnyPos(head , 6 , 2);
     N.InsertAtAnyPos(head, 0 , 0);
+    N.DeleteHead(head);
+    N.Delete(head , 4);
 
     cout<< endl<<N.len(head)<<endl;
 
