@@ -81,7 +81,9 @@ int main(){
     N.InsertAtHead(head , 3);
     N.InsertAtTail(head , 10);
     N.InsertAtTail(head , 12);
-    N.InsertAtAnyPos(head , 6 , 5);
+    N.InsertAtAnyPos(head , 6 , 2);
+    N.InsertAtAnyPos(head, 0 , 0);
+
     cout<< endl<<N.len(head)<<endl;
 
     N.print(head);
