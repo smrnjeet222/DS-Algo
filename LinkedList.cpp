@@ -10,7 +10,7 @@ class node{
             data = d;
             next = NULL;
         }
-        
+
 };
 
 
@@ -141,6 +141,22 @@ void Reverse(node*& head){
     head = Prevptr;
 }
 
+
+node* midPoint(node*head){
+    if(head==NULL||head->next==NULL){
+        return head;
+    }
+    
+    node*slow = head;
+    node*fast = head->next;
+    
+    while(fast!=NULL &&  fast->next!=NULL){
+        fast = fast->next->next;
+        slow = slow->next;
+    }
+    return slow;
+    
+}
 
 
 void print(node*head){
