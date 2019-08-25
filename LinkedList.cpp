@@ -1,4 +1,5 @@
-#include <iostream>
+#include <bits/stdc++.h>
+#include <assert.h> 
 using namespace std;
 
 class node{
@@ -22,6 +23,17 @@ int len(node* head){
     }
     return len;
 }
+
+int lenRecursive(node* &head){
+    if(head==NULL){
+        return 0 ;
+    }
+
+    return 1+lenRecursive(head->next);
+    
+}
+
+
 
 
 void InsertAtHead(node*& head , int d){
@@ -141,21 +153,53 @@ void Reverse(node*& head){
     head = Prevptr;
 }
 
+bool SearchRecursively(node* head , int key){
+    if (head == NULL)
+        return false;
 
+    if(head->data==key){
+        return true;
+    }
+    else{
+        return SearchRecursively(head->next , key);
+    }
+    
+}
+
+//Nth Node from the end
+node* NthLastPosition(node* &head , int pos){
+    if(head==NULL||head->next==NULL){
+        return head;
+    }
+    if(pos == 0 || pos>len(head)){
+        assert(0);
+    }
+    node* slow = head;
+    node* fast = head;
+
+    while(pos--){
+        fast = fast->next;
+    }
+    while(fast!= NULL){
+        slow = slow->next;
+        fast = fast->next;
+    }
+    return slow;
+}
+// Runner Technique (to return 1st  mid for even len : node*fast = head->next)
 node* midPoint(node*head){
     if(head==NULL||head->next==NULL){
         return head;
     }
     
     node*slow = head;
-    node*fast = head->next;
+    node*fast = head;
     
     while(fast!=NULL &&  fast->next!=NULL){
         fast = fast->next->next;
         slow = slow->next;
     }
-    return slow;
-    
+    return slow;    
 }
 
 
@@ -177,15 +221,23 @@ int main(){
     InsertAtHead(head , 3);
     InsertAtTail(head , 10);
     InsertAtTail(head , 12);
+    InsertAtTail(head , 100);
     InsertAtAnyPos(head , 6 , 2);
     InsertAtAnyPos(head, 0 , 0);
     
-    DeleteAtPos(head , 0);
+    //DeleteAtPos(head , 0);
     DeleteByKey(head , 4);
 
-    Reverse(head);
+    //Reverse(head);
 
-    cout<< endl<<len(head)<<endl;
+    cout<<"Mid Point : " <<midPoint(head)->data << endl;
+
+    cout<<"Length is : "<<len(head)<<" and "<<lenRecursive(head)<<endl;
+
+    cout<<"Nth Position from Last : "<<NthLastPosition(head , 1)->data<<endl;
+
+    SearchRecursively(head , 11) ? cout<<"Key is present" : cout << "Key is absent";
+    cout<<endl;
 
     print (head);
   
