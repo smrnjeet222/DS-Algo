@@ -166,6 +166,38 @@ void Reverse(node*& head){
     head = Prevptr;
 }
 
+void swap(node*& head  , int x , int y ){
+    if(x==y)
+        return;
+    node* tempx = head;;
+    node* px = NULL;
+    while(tempx && tempx->data != x){
+        px =  tempx;
+        tempx = tempx->next;
+    }
+    node* tempy = head;;
+    node* py = NULL;
+    while(tempy && tempy->data != y){
+        py =  tempy;
+        tempy = tempy->next;
+    }
+    if (tempx == NULL || tempy == NULL)  
+        return;
+    if(px!=NULL)
+        px->next = tempy;
+    else
+        head = tempy;
+
+    if(py!=NULL)
+        py->next = tempx;
+    else
+        head = tempx; 
+
+    node *temp = tempy->next;  
+    tempy->next = tempx->next;  
+    tempx->next = temp;
+}
+
 bool SearchRecursively(node* head , int key){
     if (head == NULL)
         return false;
@@ -201,20 +233,25 @@ node* NthLastPosition(node* &head , int pos){
 }
 
 
-// Runner Technique (to return 1st  mid for even len : node*fast = head->next)
+// Runner Technique (to return 2nd  mid for even len : node*fast = head)
 node* midPoint(node*head){
     if(head==NULL||head->next==NULL){
         return head;
     }
     
     node*slow = head;
-    node*fast = head;
+    node*fast = head->next;
     
     while(fast!=NULL &&  fast->next!=NULL){
         fast = fast->next->next;
         slow = slow->next;
     }
     return slow;    
+}
+
+void MergeSort(node* s){
+   
+
 }
 
 
@@ -238,7 +275,7 @@ int main(){
     InsertAtTail(head , 12);
     InsertAtTail(head , 100);
     InsertAtAnyPos(head , 6 , 2);
-    InsertAtAnyPos(head, 10 , 0);
+    InsertAtAnyPos(head, 0 , 0);
     
     //DeleteAtPos(head , 0);
     DeleteByKey(head , 4);
@@ -255,6 +292,8 @@ int main(){
     cout<<endl;
 
     head = ReverseRecursively(head);
+
+    swap(head , 0 ,100);
 
     print (head);
   
