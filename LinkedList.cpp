@@ -138,6 +138,19 @@ void DeleteAtPos(node* &head , int pos){
         return;     
 }
 
+node* ReverseRecursively(node*& head){
+    if (head == NULL || head->next == NULL)  
+        return head; 
+    
+    node* rest = ReverseRecursively(head->next);
+    /*node* p = head->next;
+    p->next = head;*/
+    //OR 
+    head->next->next = head;
+    head->next=NULL;
+
+    return rest;  
+}
     
 void Reverse(node*& head){
     node * Currentptr = head;
@@ -186,6 +199,8 @@ node* NthLastPosition(node* &head , int pos){
     }
     return slow;
 }
+
+
 // Runner Technique (to return 1st  mid for even len : node*fast = head->next)
 node* midPoint(node*head){
     if(head==NULL||head->next==NULL){
@@ -223,7 +238,7 @@ int main(){
     InsertAtTail(head , 12);
     InsertAtTail(head , 100);
     InsertAtAnyPos(head , 6 , 2);
-    InsertAtAnyPos(head, 0 , 0);
+    InsertAtAnyPos(head, 10 , 0);
     
     //DeleteAtPos(head , 0);
     DeleteByKey(head , 4);
@@ -238,6 +253,8 @@ int main(){
 
     SearchRecursively(head , 11) ? cout<<"Key is present" : cout << "Key is absent";
     cout<<endl;
+
+    head = ReverseRecursively(head);
 
     print (head);
   
