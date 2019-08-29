@@ -177,7 +177,7 @@ void ReverseUsing2Ptr(node*& head){
     head = prev; 
 }
 
-void swap(node*& head  , int x , int y ){
+void SwapByKey(node*& head  , int x , int y ){
     if(x==y)
         return;
     node* currx = head;;
@@ -209,6 +209,15 @@ void swap(node*& head  , int x , int y ){
     node *temp = curry->next;  
     curry->next = currx->next;  
     currx->next = temp;
+}
+
+void pairWiseSwapData(node*& head){
+    if (head != NULL && head->next != NULL) { 
+  
+        swap(head->data, head->next->data); 
+  
+        pairWiseSwapData(head->next->next); 
+    } 
 }
 
 bool SearchRecursively(node* head , int key){
@@ -290,7 +299,7 @@ int main(){
     InsertAtAnyPos(head , 6 , 2);
     InsertAtAnyPos(head, 0 , 0);
     
-    //DeleteAtPos(head , 0);
+    DeleteAtPos(head , 0);
     DeleteByKey(head , 4);
 
     cout<<"Mid Point : " <<midPoint(head)->data << endl;
@@ -302,10 +311,12 @@ int main(){
     SearchRecursively(head , 11) ? cout<<"Key is present" : cout << "Key is absent";
     cout<<endl;
 
-    //head = ReverseRecursively(head);
+    head = ReverseRecursively(head);
     ReverseUsing2Ptr(head);
 
-    swap(head , 0 ,100);
+    pairWiseSwapData(head);
+
+    SwapByKey(head , 0 ,100);
 
     print (head);
   
