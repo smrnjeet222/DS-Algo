@@ -288,6 +288,29 @@ bool FloydsAlgorithm(node*& head){
     }
     return false;
 }
+int count(node* n){
+    node* temp = n;
+    int length = 1;
+    while(temp->next!=n){
+        length++;
+        temp = temp->next;
+    }
+    return length;
+}
+
+int LoopLength(node*& head){
+    node* slow = head;
+    node* fast = head;
+
+    while(fast && fast->next){
+        slow = slow->next;
+        fast = fast->next->next;
+        if(slow == fast)
+            return count(slow);
+    }
+    return 0;
+    
+}
 
 
 void print(node*head){
@@ -309,10 +332,12 @@ int main(){
     InsertAtTail(head , 10);
     InsertAtTail(head , 12);
 
-    //head->next->next->next->next->next = head;
+    // head->next->next->next->next->next = head->next->next;
 
     FloydsAlgorithm(head) ? cout<<"Loop Present" : cout<<"No Loop" ;
     cout<<endl;
+
+    cout<<LoopLength(head)<<endl;
 
 
     // InsertAtTail(head , 100);
