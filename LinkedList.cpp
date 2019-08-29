@@ -276,6 +276,19 @@ void MergeSort(node* s){
 
 }
 
+bool FloydsAlgorithm(node*& head){
+    node* slow = head;
+    node* fast = head;
+
+    while(fast && fast->next){
+        slow = slow->next;
+        fast = fast->next->next;
+        if(slow == fast)
+            return true;
+    }
+    return false;
+}
+
 
 void print(node*head){
     
@@ -295,30 +308,37 @@ int main(){
     InsertAtHead(head , 3);
     InsertAtTail(head , 10);
     InsertAtTail(head , 12);
-    InsertAtTail(head , 100);
-    InsertAtAnyPos(head , 6 , 2);
-    InsertAtAnyPos(head, 0 , 0);
-    
-    DeleteAtPos(head , 0);
-    DeleteByKey(head , 4);
 
-    cout<<"Mid Point : " <<midPoint(head)->data << endl;
+    //head->next->next->next->next->next = head;
 
-    cout<<"Length is : "<<len(head)<<" and "<<lenRecursive(head)<<endl;
-
-    cout<<"Nth Position from Last : "<<NthLastPosition(head , 1)->data<<endl;
-
-    SearchRecursively(head , 11) ? cout<<"Key is present" : cout << "Key is absent";
+    FloydsAlgorithm(head) ? cout<<"Loop Present" : cout<<"No Loop" ;
     cout<<endl;
 
-    head = ReverseRecursively(head);
-    ReverseUsing2Ptr(head);
 
-    pairWiseSwapData(head);
+    // InsertAtTail(head , 100);
+    // InsertAtAnyPos(head , 6 , 2);
+    // InsertAtAnyPos(head, 0 , 0);
+    
+    // DeleteAtPos(head , 0);
+    // DeleteByKey(head , 4);
 
-    SwapByKey(head , 0 ,100);
+    // cout<<"Mid Point : " <<midPoint(head)->data << endl;
 
-    print (head);
+    // cout<<"Length is : "<<len(head)<<" and "<<lenRecursive(head)<<endl;
+
+    // cout<<"Nth Position from Last : "<<NthLastPosition(head , 1)->data<<endl;
+
+    // SearchRecursively(head , 11) ? cout<<"Key is present" : cout << "Key is absent";
+    // cout<<endl;
+
+    // head = ReverseRecursively(head);
+    // ReverseUsing2Ptr(head);
+
+    // pairWiseSwapData(head);
+
+    // SwapByKey(head , 0 ,100);
+
+    // print (head);
   
     return 0;
 }
