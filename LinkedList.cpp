@@ -2,15 +2,17 @@
 #include <assert.h> 
 using namespace std;
 
+typedef uintptr_t ut; 
+
 class node{
     public:
         int data;
         node* next;
         
-        node(int d){
-            data = d;
-            next = NULL;
-        }
+    node(int d){
+        data = d;
+        next = NULL;
+    }
 
 };
 
@@ -32,9 +34,6 @@ int lenRecursive(node* &head){
     return 1+lenRecursive(head->next);
     
 }
-
-
-
 
 void InsertAtHead(node*& head , int d){
     node* n = new node(d);
@@ -80,7 +79,7 @@ void InsertAtAnyPos(node*& head , int d , int pos){
 }
 
 
-void DeleteHead(node* &head ){
+void DeleteHead(node*& head ){
     if (head==NULL){
         return;
     }
@@ -93,7 +92,7 @@ void DeleteHead(node* &head ){
 }
 
 
-void DeleteByKey(node *& head , int key){
+void DeleteByKey(node*& head , int key){
     node *temp = head;
     if (head->data == key){
         DeleteHead(head);
@@ -162,40 +161,54 @@ void Reverse(node*& head){
         Currentptr->next = Prevptr;
         Prevptr = Currentptr;
         Currentptr  = Nxt;
+        
     }
     head = Prevptr;
+}
+
+void ReverseUsing2Ptr(node*& head){
+    node* prev = NULL; 
+    node* current = head; 
+
+     while (current != NULL) { 
+        current = (node*)((ut)prev ^ (ut)current ^ (ut)(current->next) ^ (ut)(current->next = prev) ^ (ut)(prev = current)); 
+    } 
+  
+    head = prev; 
 }
 
 void swap(node*& head  , int x , int y ){
     if(x==y)
         return;
-    node* tempx = head;;
+    node* currx = head;;
     node* px = NULL;
-    while(tempx && tempx->data != x){
-        px =  tempx;
-        tempx = tempx->next;
+    while(currx && currx->data != x){
+        px =  currx;
+        currx = currx->next;
     }
-    node* tempy = head;;
+    node* curry = head;;
     node* py = NULL;
-    while(tempy && tempy->data != y){
-        py =  tempy;
-        tempy = tempy->next;
+    while(curry && curry->data != y){
+        py =  curry;
+        curry = curry->next;
     }
-    if (tempx == NULL || tempy == NULL)  
+
+    if (currx == NULL || curry == NULL)  
         return;
+
     if(px!=NULL)
-        px->next = tempy;
+        px->next = curry;
     else
-        head = tempy;
+        head = curry;
 
     if(py!=NULL)
-        py->next = tempx;
+        py->next = currx;
     else
-        head = tempx; 
+        head = currx; 
 
-    node *temp = tempy->next;  
-    tempy->next = tempx->next;  
-    tempx->next = temp;
+    node *temp = curry->next;  
+    curry->next = currx->next;  
+    currx->next = temp;
 }
 
 bool SearchRecursively(node* head , int key){
@@ -250,7 +263,7 @@ node* midPoint(node*head){
 }
 
 void MergeSort(node* s){
-   
+    
 
 }
 
@@ -280,8 +293,6 @@ int main(){
     //DeleteAtPos(head , 0);
     DeleteByKey(head , 4);
 
-    //Reverse(head);
-
     cout<<"Mid Point : " <<midPoint(head)->data << endl;
 
     cout<<"Length is : "<<len(head)<<" and "<<lenRecursive(head)<<endl;
@@ -291,7 +302,8 @@ int main(){
     SearchRecursively(head , 11) ? cout<<"Key is present" : cout << "Key is absent";
     cout<<endl;
 
-    head = ReverseRecursively(head);
+    //head = ReverseRecursively(head);
+    ReverseUsing2Ptr(head);
 
     swap(head , 0 ,100);
 
