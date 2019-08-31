@@ -183,7 +183,7 @@ int main(){
     InsertAtTail(head , 70);
     InsertAt(head , 20 ,2);
 
-    Delete(head , 0);
+    Delete(head , -32);
 
     SearchRecursively(head , 50) ? cout<<"true": cout<<"false";
     cout<<endl;
