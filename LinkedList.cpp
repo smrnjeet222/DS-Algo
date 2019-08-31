@@ -155,13 +155,11 @@ void Reverse(node*& head){
     node * Currentptr = head;
     node * Prevptr = NULL;
     node * Nxt;
-    while(Currentptr != NULL){
-        
+    while(Currentptr != NULL){ 
         Nxt = Currentptr->next;
         Currentptr->next = Prevptr;
         Prevptr = Currentptr;
         Currentptr  = Nxt;
-        
     }
     head = Prevptr;
 }
@@ -173,7 +171,6 @@ void ReverseUsing2Ptr(node*& head){
      while (current != NULL) { 
         current = (node*)((ut)prev ^ (ut)current ^ (ut)(current->next) ^ (ut)(current->next = prev) ^ (ut)(prev = current)); 
     } 
-  
     head = prev; 
 }
 

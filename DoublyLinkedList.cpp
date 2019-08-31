@@ -76,7 +76,7 @@ void InsertAt(node*& head , int d, int pos){
 
 }
 
-void Delete(node* &head , int pos){
+void Delete(node*& head , int pos){
     node* temp = head;
     if(head == NULL){
         cout<<"No elements in Linked List"<<endl;
@@ -113,6 +113,21 @@ void Delete(node* &head , int pos){
         delete n;
         return;
     }
+}
+
+void DeleteKey(node*& head , int key){
+    node* p = head;
+    int position = 0;
+    while(p != NULL && key != p->data){
+        position++;
+        p = p->next;
+    }
+    if(p!=NULL)
+        Delete(head , position);
+    else
+        cout<<"Key Not Found"<<endl;
+
+    return;
 }
 
 // Runner Technique (to return 2nd  mid for even len : node*fast = head)
@@ -183,10 +198,12 @@ int main(){
     InsertAtTail(head , 70);
     InsertAt(head , 20 ,2);
 
-    Delete(head , -32);
+    //Delete(head , -30);
 
     SearchRecursively(head , 50) ? cout<<"true": cout<<"false";
     cout<<endl;
+
+    DeleteKey(head, 5);
 
     //Reverse(head);
 
