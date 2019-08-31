@@ -185,7 +185,8 @@ int main(){
 
     Delete(head , 0);
 
-
+    SearchRecursively(head , 50) ? cout<<"true": cout<<"false";
+    cout<<endl;
     //Reverse(head);
 
     print(head);
