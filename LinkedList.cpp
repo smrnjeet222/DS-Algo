@@ -115,7 +115,7 @@ void DeleteByKey(node*& head , int key){
 
 
 void DeleteAtPos(node* &head , int pos){
-    if (pos==0){
+    if (pos<=0){
         DeleteHead(head);
         return;
     }    
@@ -238,7 +238,7 @@ node* NthLastPosition(node* &head , int pos){
     if(head==NULL||head->next==NULL){
         return head;
     }
-    if(pos == 0 || pos>len(head)){
+    if(pos <= 0 || pos>len(head)){
         assert(0);
     }
     node* slow = head;

@@ -87,7 +87,7 @@ void Delete(node* &head , int pos){
         cout<<"No elements in Linked List"<<endl;
         return;
     }
-    else if(pos==0){
+    else if(pos<=0){
         head = temp->next;
         head->prev = NULL;
         delete temp;
@@ -187,6 +187,7 @@ int main(){
 
     SearchRecursively(head , 50) ? cout<<"true": cout<<"false";
     cout<<endl;
+
     //Reverse(head);
 
     print(head);
