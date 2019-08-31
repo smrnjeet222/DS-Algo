@@ -159,23 +159,22 @@ bool SearchRecursively(node* head , int key){
     
 }
 
-// void Reverse(node*& head){
+void Reverse(node*& head){
+    node* temp = NULL;
+    node* curr = head;
+    if(curr==NULL|| curr->next == NULL)
+        return;
 
-//     node* temp = NULL;
-//     node* curr = head;
-
-//     while(curr!= NULL){
-//         temp = curr->prev;
-//         curr->prev = curr->next;
-//         curr->next = temp;
-//         curr = curr->prev;
-//     }
-//     cout<<curr->data<<endl;
-//         if (temp!= NULL)
-//         head = curr;
-
-//     return;
-// }
+    while(curr!= NULL){
+        temp = curr->prev;
+        curr->prev = curr->next;
+        curr->next = temp;
+        curr = curr->prev;
+    }
+    if (temp!= NULL)
+        head = temp->prev;
+    return;
+}
 
 
 void print(node*head){
@@ -198,14 +197,14 @@ int main(){
     InsertAtTail(head , 70);
     InsertAt(head , 20 ,2);
 
-    //Delete(head , -30);
+    Delete(head , -30);
 
     SearchRecursively(head , 50) ? cout<<"true": cout<<"false";
     cout<<endl;
 
     DeleteKey(head, 5);
 
-    //Reverse(head);
+    Reverse(head);
 
     print(head);
 
