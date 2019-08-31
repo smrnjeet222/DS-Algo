@@ -76,11 +76,97 @@ void InsertAt(node*& head , int d, int pos){
 
 }
 
+void Delete(node* &head , int pos){
+    node* temp = head;
+    if(head == NULL){
+        cout<<"No elements in Linked List"<<endl;
+        return;
+    }
+    else if(head->next == NULL){
+        head = NULL;
+        cout<<"No elements in Linked List"<<endl;
+        return;
+    }
+    else if(pos==0){
+        head = temp->next;
+        head->prev = NULL;
+        delete temp;
+        return;
+    }
+    else if((pos+1)>=len(head)){
+        while(temp->next->next != NULL){
+           temp = temp->next;
+        }
+        delete temp->next;
+        temp->next = NULL;
+        return;
+    }
+    else{
+        int jump = 1;
+        while (jump < pos){
+            temp = temp->next;
+            jump++; 
+        }
+        node*n = temp->next;
+        temp->next = n->next;
+        temp->next->prev = n->prev;
+        delete n;
+        return;
+    }
+}
+
+// Runner Technique (to return 2nd  mid for even len : node*fast = head)
+node* midPoint(node*head){
+    if(head==NULL||head->next==NULL){
+        return head;
+    }
+    
+    node*slow = head;
+    node*fast = head->next;
+    
+    while(fast!=NULL &&  fast->next!=NULL){
+        fast = fast->next->next;
+        slow = slow->next;
+    }
+    return slow;    
+}
+
+bool SearchRecursively(node* head , int key){
+    if (head == NULL)
+        return false;
+
+    if(head->data==key){
+        return true;
+    }
+    else{
+        return SearchRecursively(head->next , key);
+    }
+    
+}
+
+// void Reverse(node*& head){
+
+//     node* temp = NULL;
+//     node* curr = head;
+
+//     while(curr!= NULL){
+//         temp = curr->prev;
+//         curr->prev = curr->next;
+//         curr->next = temp;
+//         curr = curr->prev;
+//     }
+//     cout<<curr->data<<endl;
+//         if (temp!= NULL)
+//         head = curr;
+
+//     return;
+// }
+
 
 void print(node*head){
     
     while(head!=NULL){
-        cout<<head->data<<"->";
+        cout<<head->data<<" - ";
         head = head->next;
     }
     cout<<endl;
@@ -96,6 +182,11 @@ int main(){
     InsertAtTail(head , 60);
     InsertAtTail(head , 70);
     InsertAt(head , 20 ,2);
+
+    Delete(head , 0);
+
+
+    //Reverse(head);
 
     print(head);
 
