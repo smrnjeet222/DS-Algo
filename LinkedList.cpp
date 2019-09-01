@@ -222,9 +222,14 @@ node* NthLastPosition(node*& head, int pos) {
     if (head == NULL || head->next == NULL) {
         return head;
     }
-    if (pos <= 0 || pos > len(head)) {
-        assert(0);
+    else if (pos <= 0) {
+        pos = 1;
     }
+    else if ( pos > len(head))
+    {
+        pos = len(head);
+    }
+    
     node* slow = head;
     node* fast = head;
 
@@ -270,19 +275,6 @@ node* FloydsAlgorithm(node*& head) {
     return NULL;
 }
 
-node* StartOfLoop(node*& head) {
-    node* q = head;
-    node* p = FloydsAlgorithm(head);
-    if(!p){
-        return NULL;
-    }
-    while (q != p) {
-        q = q->next;
-        p = p->next;
-    }
-    return p;
-}
-
 int count(node* n) {
     node* temp = n;
     int length = 1;
@@ -306,6 +298,31 @@ int LoopLength(node*& head) {
     return 0;
 }
 
+node* StartOfLoop(node*& head) {
+    node* q = head;
+    node* p = FloydsAlgorithm(head);
+    if (!p) {
+        return NULL;
+    }
+    while (q != p) {
+        q = q->next;
+        p = p->next;
+    }
+    return p;
+}
+
+void BreakLoop(node*& head) {
+    node* p = StartOfLoop(head);
+    if(!p){
+        return;
+    }
+    int l = (LoopLength(head)-1);
+    while (l--) {
+        p = p->next;
+    }
+    p->next = NULL;
+}
+
 void print(node* head) {
     while (head != NULL) {
         cout << head->data << "->";
@@ -322,8 +339,9 @@ int main() {
     InsertAtHead(head, 3);
     InsertAtTail(head, 10);
     InsertAtTail(head, 12);
+    InsertAtTail(head, 100);
 
-    //head->next->next->next->next->next = head->next->next;
+    head->next->next->next->next->next->next = head->next->next;
 
     FloydsAlgorithm(head) ? cout << "Loop Present" : cout << "No Loop";
     cout << endl;
@@ -331,21 +349,12 @@ int main() {
     cout << LoopLength(head) << endl;
     cout << "Start Of Loop : " << StartOfLoop(head) << endl;
 
-    InsertAtTail(head, 100);
+    BreakLoop(head);
     InsertAtAnyPos(head, 6, 2);
-    InsertAtAnyPos(head, 0, 0);
+    //InsertAtAnyPos(head, 0, 0);
 
     DeleteAtPos(head, 0);
     DeleteByKey(head, 4);
-
-    cout << "Mid Point : " << midPoint(head)->data << endl;
-
-    cout << "Length is : " << len(head) << " and " << lenRecursive(head) << endl;
-
-    cout << "Nth Position from Last : " << NthLastPosition(head, 1)->data << endl;
-
-    SearchRecursively(head, 11) ? cout << "Key is present" : cout << "Key is absent";
-    cout << endl;
 
     head = ReverseRecursively(head);
     ReverseUsing2Ptr(head);
@@ -353,6 +362,15 @@ int main() {
     pairWiseSwapData(head);
 
     SwapByKey(head, 0, 100);
+
+    cout << "Mid Point : " << midPoint(head)->data << endl;
+
+    cout << "Length is : " << len(head) << " and " << lenRecursive(head) << endl;
+
+    cout << "Nth Position from Last : " << NthLastPosition(head, -3)->data << endl;
+
+    SearchRecursively(head, 11) ? cout << "Key is present" : cout << "Key is absent";
+    cout << endl;
 
     print(head);
 
