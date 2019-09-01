@@ -257,18 +257,32 @@ node* midPoint(node* head) {
 void MergeSort(node* s) {
 }
 
-bool FloydsAlgorithm(node*& head) {
+node* FloydsAlgorithm(node*& head) {
     node* slow = head;
     node* fast = head;
 
-    while (fast && fast->next) {
+    while (slow && fast && fast->next) {
         slow = slow->next;
         fast = fast->next->next;
         if (slow == fast)
-            return true;
+            return slow;
     }
-    return false;
+    return NULL;
 }
+
+node* StartOfLoop(node*& head) {
+    node* q = head;
+    node* p = FloydsAlgorithm(head);
+    if(!p){
+        return NULL;
+    }
+    while (q != p) {
+        q = q->next;
+        p = p->next;
+    }
+    return p;
+}
+
 int count(node* n) {
     node* temp = n;
     int length = 1;
@@ -309,37 +323,38 @@ int main() {
     InsertAtTail(head, 10);
     InsertAtTail(head, 12);
 
-    // head->next->next->next->next->next = head->next->next;
+    //head->next->next->next->next->next = head->next->next;
 
     FloydsAlgorithm(head) ? cout << "Loop Present" : cout << "No Loop";
     cout << endl;
 
     cout << LoopLength(head) << endl;
+    cout << "Start Of Loop : " << StartOfLoop(head) << endl;
 
-    // InsertAtTail(head , 100);
-    // InsertAtAnyPos(head , 6 , 2);
-    // InsertAtAnyPos(head, 0 , 0);
+    InsertAtTail(head, 100);
+    InsertAtAnyPos(head, 6, 2);
+    InsertAtAnyPos(head, 0, 0);
 
-    // DeleteAtPos(head , 0);
-    // DeleteByKey(head , 4);
+    DeleteAtPos(head, 0);
+    DeleteByKey(head, 4);
 
-    // cout<<"Mid Point : " <<midPoint(head)->data << endl;
+    cout << "Mid Point : " << midPoint(head)->data << endl;
 
-    // cout<<"Length is : "<<len(head)<<" and "<<lenRecursive(head)<<endl;
+    cout << "Length is : " << len(head) << " and " << lenRecursive(head) << endl;
 
-    // cout<<"Nth Position from Last : "<<NthLastPosition(head , 1)->data<<endl;
+    cout << "Nth Position from Last : " << NthLastPosition(head, 1)->data << endl;
 
-    // SearchRecursively(head , 11) ? cout<<"Key is present" : cout << "Key is absent";
-    // cout<<endl;
+    SearchRecursively(head, 11) ? cout << "Key is present" : cout << "Key is absent";
+    cout << endl;
 
-    // head = ReverseRecursively(head);
-    // ReverseUsing2Ptr(head);
+    head = ReverseRecursively(head);
+    ReverseUsing2Ptr(head);
 
-    // pairWiseSwapData(head);
+    pairWiseSwapData(head);
 
-    // SwapByKey(head , 0 ,100);
+    SwapByKey(head, 0, 100);
 
-    // print (head);
+    print(head);
 
     return 0;
 }
