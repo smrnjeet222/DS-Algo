@@ -21,12 +21,45 @@ int len(node* head) {
     } while (n != head);
     return len;
 }
-
+void DeleteHead(node*& head) {
+    if (head == NULL) {
+        return;
+    } else {
+        node* temp = head;
+        while(temp->next != head){
+            temp = temp->next;
+        }
+        temp->next = head->next;
+        delete head;
+        head = temp->next;
+        return;
+    }
+}
+// one time deletion
+void DeleteByKey(node*& head, int key) {
+    node* temp = head;
+    if (head->data == key) {
+        DeleteHead(head);
+        return;
+    }
+    while (temp->next != head) {
+        if ((temp->next)->data == key) {
+            node* n = temp->next;
+            temp->next = n->next;
+            delete n;
+            return;
+        }
+        temp = temp->next;
+    }
+    if (temp->next == head) {
+        cout << "Key not found";
+        return;
+    }
+}
 void InsertAtHead(node*& head, int d) {
     node* n = new node(d);
     node* temp = head;
     n->next = head;
-    //head = n;
     if (head == NULL) {
         n->next = n;
 
@@ -92,15 +125,19 @@ int main() {
     InsertAtHead(head, 2);
     InsertAtTail(head, 20);
     InsertAtTail(head, 30);
-    InsertAtAnyPos(head, 25, 3);
+    InsertAtAnyPos(head, 25, 2);
+    InsertAtAnyPos(head, 25, 4);
 
-    
-    cout<<endl;
+    DeleteByKey(head , 25);
+
+    cout << endl;
     print(head);
+    cout << endl;
 
-    // for (int i = 0; i < 10; i++) {
-    //     cout << head->data << " ";
-    //     head = head->next;
-    // }
+    for (int i = 0; i < 10; i++) {
+        cout << head->data << " ";
+        head = head->next;
+    }
+    cout << endl;
     return 0;
 }
