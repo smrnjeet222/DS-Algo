@@ -221,15 +221,12 @@ bool SearchRecursively(node* head, int key) {
 node* NthLastPosition(node*& head, int pos) {
     if (head == NULL || head->next == NULL) {
         return head;
-    }
-    else if (pos <= 0) {
+    } else if (pos <= 0) {
         pos = 1;
-    }
-    else if ( pos > len(head))
-    {
+    } else if (pos > len(head)) {
         pos = len(head);
     }
-    
+
     node* slow = head;
     node* fast = head;
 
@@ -313,15 +310,15 @@ node* StartOfLoop(node*& head) {
 
 void BreakLoop(node*& head) {
     node* p = StartOfLoop(head);
-    if(!p){
+    if (!p) {
         return;
     }
-    int l = (LoopLength(head)-1);
+    int l = (LoopLength(head) - 1);
     while (l--) {
         p = p->next;
     }
     p->next = NULL;
-    cout<<"Loop Breaked"<<endl;
+    cout << "Loop Breaked" << endl;
 }
 
 void print(node* head) {
