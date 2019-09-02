@@ -53,7 +53,7 @@ void InsertAtTail(node*& head, int d) {
 }
 
 void InsertAtAnyPos(node*& head, int d, int pos) {
-    if (head == NULL || pos == 0) {
+    if (head == NULL || pos <= 0) {
         InsertAtHead(head, d);
     } else if (pos > len(head)) {
         InsertAtTail(head, d);
@@ -321,6 +321,7 @@ void BreakLoop(node*& head) {
         p = p->next;
     }
     p->next = NULL;
+    cout<<"Loop Breaked"<<endl;
 }
 
 void print(node* head) {
@@ -351,17 +352,17 @@ int main() {
 
     BreakLoop(head);
     InsertAtAnyPos(head, 6, 2);
-    //InsertAtAnyPos(head, 0, 0);
+    InsertAtAnyPos(head, 0, 0);
 
     DeleteAtPos(head, 0);
-    DeleteByKey(head, 4);
+    DeleteByKey(head, 6);
 
     head = ReverseRecursively(head);
     ReverseUsing2Ptr(head);
 
     pairWiseSwapData(head);
 
-    SwapByKey(head, 0, 100);
+    SwapByKey(head, 4, 100);
 
     cout << "Mid Point : " << midPoint(head)->data << endl;
 
