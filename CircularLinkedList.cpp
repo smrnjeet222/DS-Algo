@@ -15,7 +15,7 @@ public:
 int len(node* head) {
     node* n = head;
     int len = 0;
-    if(head == NULL)
+    if (head == NULL)
         return 0;
     do {
         n = n->next;
@@ -67,7 +67,6 @@ void InsertAtHead(node*& head, int d) {
     n->next = head;
     if (head == NULL) {
         n->next = n;
-
     } else {
         while (temp->next != head)
             temp = temp->next;
@@ -118,7 +117,9 @@ void SortedInsert(node*& head, int d) {
         return;
     } else if (d <= head->data) {
         InsertAtHead(head, d);
+        return;
     }
+
     node* temp = head;
     int pos = 1;
     while (temp->next != head) {
@@ -133,6 +134,17 @@ void SortedInsert(node*& head, int d) {
         InsertAtTail(head, d);
         return;
     }
+}
+
+void SwapFirstLast(node*& head){
+    node* p = head;
+    while (p->next->next != head) 
+       p = p->next;
+
+    p->next->next = head->next;
+    head->next = p->next;
+    p->next = head;
+    head = head->next;
 }
 void print(node* head) {
     node* n = head;
@@ -157,7 +169,9 @@ int main() {
     InsertAtAnyPos(head, 25, 4);
     DeleteByKey(head, 25);
 
-    SortedInsert(head , 1);
+    SortedInsert(head, 1);
+
+    SwapFirstLast(head);
 
     cout << endl;
     print(head);
