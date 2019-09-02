@@ -15,18 +15,21 @@ public:
 int len(node* head) {
     node* n = head;
     int len = 0;
+    if(head == NULL)
+        return 0;
     do {
         n = n->next;
         len++;
     } while (n != head);
     return len;
 }
+
 void DeleteHead(node*& head) {
     if (head == NULL) {
         return;
     } else {
         node* temp = head;
-        while(temp->next != head){
+        while (temp->next != head) {
             temp = temp->next;
         }
         temp->next = head->next;
@@ -37,6 +40,8 @@ void DeleteHead(node*& head) {
 }
 // one time deletion
 void DeleteByKey(node*& head, int key) {
+    if (head == NULL)
+        return;
     node* temp = head;
     if (head->data == key) {
         DeleteHead(head);
@@ -106,6 +111,29 @@ void InsertAtAnyPos(node*& head, int d, int pos) {
         return;
     }
 }
+
+void SortedInsert(node*& head, int d) {
+    if (head == NULL) {
+        InsertAtHead(head, d);
+        return;
+    } else if (d <= head->data) {
+        InsertAtHead(head, d);
+    }
+    node* temp = head;
+    int pos = 1;
+    while (temp->next != head) {
+        if (d >= temp->data && d < (temp->next)->data) {
+            InsertAtAnyPos(head, d, pos);
+            return;
+        }
+        pos++;
+        temp = temp->next;
+    }
+    if (temp->next == head && temp->data <= d) {
+        InsertAtTail(head, d);
+        return;
+    }
+}
 void print(node* head) {
     node* n = head;
     if (head != NULL) {
@@ -127,11 +155,13 @@ int main() {
     InsertAtTail(head, 30);
     InsertAtAnyPos(head, 25, 2);
     InsertAtAnyPos(head, 25, 4);
+    DeleteByKey(head, 25);
 
-    DeleteByKey(head , 25);
+    SortedInsert(head , 1);
 
     cout << endl;
     print(head);
+    cout << "Length of LL : " << len(head);
     cout << endl;
 
     for (int i = 0; i < 10; i++) {
