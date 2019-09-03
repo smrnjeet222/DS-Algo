@@ -8,9 +8,9 @@ public:
     node* prev;
 
     node(int d) {
-        data = d;
-        next = NULL;
-        prev = NULL;
+        this->data = d;
+        this->next = NULL;
+        this->prev = NULL;
     }
 };
 
