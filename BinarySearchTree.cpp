@@ -1,4 +1,5 @@
 #include <iostream>
+#include <queue>
 using namespace std;
 
 class node {
@@ -67,6 +68,7 @@ node* Search(node* root, int key) {
         return Search(root->right, key);
 }
 
+//Sorted Traversal
 void inorderTraversal(node* root) {
     if (root != NULL) {
         inorderTraversal(root->left);
@@ -94,6 +96,22 @@ void postorderTraversal(node* root) {
     }
 }
 
+void levelorderTraversal(node* root) {
+    if (root == NULL)
+        return;
+    queue<node*> Q;
+    Q.push(root);
+    while (!Q.empty()) {
+        node* current = Q.front();
+        cout << current->data<< "-";
+        if (current->left != NULL)
+            Q.push(current->left);
+        if (current->right != NULL)
+            Q.push(current->right);
+        Q.pop();
+    }
+}
+
 int main() {
     node* root = NULL;
     Insert(root, 20);
@@ -110,21 +128,25 @@ int main() {
 
     Search(root, 10) ? cout << "Key Found " : cout << "Key Missing ";
 
-    cout << "\nInorder Traversal :"<<endl;
+    cout << "\nInorder Traversal :" << endl;
     inorderTraversal(root);
     cout << endl;
 
-    cout <<"\nPreorder Traversal :"<<endl;
+    cout << "\nPreorder Traversal :" << endl;
     preorderTraversal(root);
-    cout<<endl;
+    cout << endl;
 
-    cout <<"\nPostorder Traversal :"<<endl;
+    cout << "\nPostorder Traversal :" << endl;
     postorderTraversal(root);
-    cout<<endl;
-    cout<<endl;
+    cout << endl;
 
-    cout << FindMin(root) << " to " << FindMax(root) << endl;
-    cout << FindHeight(root) << endl;
+    cout << "\nLevel order Traversal :" << endl;
+    levelorderTraversal(root);
+    cout << endl;
+    cout << endl;
+
+    cout << "Min to Max : " << FindMin(root) << " to " << FindMax(root) << endl;
+    cout << "Height : " << FindHeight(root) << endl;
 
     return 0;
 }
