@@ -27,22 +27,22 @@ void Insert(node*& root, int d) {
     return;
 }
 
-int FindMin(node* root) {
+node* FindMin(node* root) {
     node* temp = root;
     if (root == NULL) {
-        return -1;
+        return NULL;
     } else if (root->left == NULL) {
-        return root->data;
+        return root;
     }
     return (FindMin(root->left));
 }
 
-int FindMax(node* root) {
+node* FindMax(node* root) {
     node* temp = root;
     if (root == NULL) {
-        return -1;
+        return NULL;
     } else if (root->right == NULL) {
-        return root->data;
+        return root;
     }
     return (FindMax(root->right));
 }
@@ -56,7 +56,40 @@ int FindHeight(node* root) {
 
     return max(leftHeight, rightHeight) + 1;
 }
-void Delete(node*& root) {
+
+//IMP.
+node* Delete(node*& root, int d) {
+    if (root == NULL)
+        return root;
+    else if (d < root->data)
+        root->left = Delete(root->left, d);
+    else if (d > root->data)
+        root->right = Delete(root->right, d);
+    //when data is found
+    else {
+        //Case 1 : no child
+        if (root->left == NULL && root->right == NULL) {
+            delete root;
+            root = NULL;
+        }
+        //case 2 : 1 child
+        else if (root->left == NULL) {
+            node* temp = root;
+            root = root->right;
+            delete temp;
+        } else if (root->right == NULL) {
+            node* temp = root;
+            root = root->left;
+            delete temp;
+        }
+        //case 3: 2 children
+        else {
+            node* temp = FindMin(root->right);
+            root->data = temp->data;
+            root->right = Delete(root->right, temp->data);
+        }
+    }
+    return root;
 }
 
 node* Search(node* root, int key) {
@@ -68,7 +101,7 @@ node* Search(node* root, int key) {
         return Search(root->right, key);
 }
 
-//Sorted Traversal
+//Sorted Traversal - left-data-rght
 void inorderTraversal(node* root) {
     if (root != NULL) {
         inorderTraversal(root->left);
@@ -78,6 +111,7 @@ void inorderTraversal(node* root) {
     }
 }
 
+//data-left-right
 void preorderTraversal(node* root) {
     if (root != NULL) {
         cout << root->data << "-";
@@ -87,6 +121,7 @@ void preorderTraversal(node* root) {
     }
 }
 
+//left-right-data
 void postorderTraversal(node* root) {
     if (root != NULL) {
         cout << root->data << "-";
@@ -96,6 +131,7 @@ void postorderTraversal(node* root) {
     }
 }
 
+//IMP. spacec. O(n/2)- worst/avg. case
 void levelorderTraversal(node* root) {
     if (root == NULL)
         return;
@@ -103,7 +139,7 @@ void levelorderTraversal(node* root) {
     Q.push(root);
     while (!Q.empty()) {
         node* current = Q.front();
-        cout << current->data<< "-";
+        cout << current->data << "-";
         if (current->left != NULL)
             Q.push(current->left);
         if (current->right != NULL)
@@ -112,21 +148,8 @@ void levelorderTraversal(node* root) {
     }
 }
 
-int main() {
-    node* root = NULL;
-    Insert(root, 20);
-    Insert(root, 10);
-    Insert(root, 50);
-    Insert(root, 5);
-    Insert(root, 12);
-    Insert(root, 25);
-    Insert(root, 60);
-    Insert(root, 15);
-    Insert(root, 22);
-    Insert(root, 11);
-    Insert(root, 33);
-
-    Search(root, 10) ? cout << "Key Found " : cout << "Key Missing ";
+void AllInfo(node* root) {
+    Search(root, 11) ? cout << "Key Found " : cout << "Key Missing ";
 
     cout << "\nInorder Traversal :" << endl;
     inorderTraversal(root);
@@ -145,8 +168,31 @@ int main() {
     cout << endl;
     cout << endl;
 
-    cout << "Min to Max : " << FindMin(root) << " to " << FindMax(root) << endl;
+    cout << "Min to Max : " << FindMin(root)->data << " to " << FindMax(root)->data << endl;
     cout << "Height : " << FindHeight(root) << endl;
+}
+
+int main() {
+    node* root = NULL;
+    Insert(root, 20);
+    Insert(root, 10);
+    Insert(root, 50);
+    Insert(root, 5);
+    Insert(root, 12);
+    Insert(root, 25);
+    Insert(root, 60);
+    Insert(root, 15);
+    Insert(root, 22);
+    Insert(root, 11);
+    Insert(root, 33);
+
+    AllInfo(root);
+
+    Delete(root, 20);
+
+    cout << "\nAfter Deletion : " << endl;
+
+    AllInfo(root);
 
     return 0;
 }
