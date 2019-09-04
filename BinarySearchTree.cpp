@@ -45,6 +45,16 @@ int FindMax(node* root) {
     }
     return (FindMax(root->right));
 }
+
+int FindHeight(node* root){
+    if(root == NULL){
+       return -1; 
+    }
+    int leftHeight = FindHeight(root->left);
+    int rightHeight = FindHeight(root->right);
+
+    return max(leftHeight , rightHeight) + 1;
+}
 void Delete(node*& root) {
 }
 
@@ -74,7 +84,7 @@ int main() {
     Insert(root, 5);
     Insert(root, 12);
     Insert(root, 25);
-    Insert(root, 33);
+    //Insert(root, 33);
 
     Search(root, 10) ? cout << "Key Found " : cout << "Key Missing ";
 
@@ -83,6 +93,7 @@ int main() {
     cout << endl;
 
     cout<<FindMin(root)<<" to "<<FindMax(root)<<endl;
-   
+    cout<<FindHeight(root)<<endl;
+
     return 0;
 }
