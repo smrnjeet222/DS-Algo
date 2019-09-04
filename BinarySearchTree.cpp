@@ -26,6 +26,28 @@ void Insert(node*& root, int d) {
     return;
 }
 
+int FindMin(node* root) {
+    node* temp = root;
+    if (root == NULL) {
+        return -1;
+    } else if (root->left == NULL) {
+        return root->data;
+    }
+    return (FindMin(root->left));
+}
+
+int FindMax(node* root) {
+    node* temp = root;
+    if (root == NULL) {
+        return -1;
+    } else if (root->right == NULL){
+        return root->data;
+    }
+    return (FindMax(root->right));
+}
+void Delete(node*& root) {
+}
+
 node* Search(node* root, int key) {
     if (root == NULL || root->data == key)
         return root;
@@ -60,5 +82,7 @@ int main() {
     print(root);
     cout << endl;
 
+    cout<<FindMin(root)<<" to "<<FindMax(root)<<endl;
+   
     return 0;
 }
