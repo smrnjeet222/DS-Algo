@@ -40,20 +40,20 @@ int FindMax(node* root) {
     node* temp = root;
     if (root == NULL) {
         return -1;
-    } else if (root->right == NULL){
+    } else if (root->right == NULL) {
         return root->data;
     }
     return (FindMax(root->right));
 }
 
-int FindHeight(node* root){
-    if(root == NULL){
-       return -1; 
+int FindHeight(node* root) {
+    if (root == NULL) {
+        return -1;
     }
     int leftHeight = FindHeight(root->left);
     int rightHeight = FindHeight(root->right);
 
-    return max(leftHeight , rightHeight) + 1;
+    return max(leftHeight, rightHeight) + 1;
 }
 void Delete(node*& root) {
 }
@@ -67,11 +67,29 @@ node* Search(node* root, int key) {
         return Search(root->right, key);
 }
 
-void print(node* root) {
+void inorderTraversal(node* root) {
     if (root != NULL) {
-        print(root->left);
+        inorderTraversal(root->left);
         cout << root->data << "-";
-        print(root->right);
+        inorderTraversal(root->right);
+        return;
+    }
+}
+
+void preorderTraversal(node* root) {
+    if (root != NULL) {
+        cout << root->data << "-";
+        preorderTraversal(root->left);
+        preorderTraversal(root->right);
+        return;
+    }
+}
+
+void postorderTraversal(node* root) {
+    if (root != NULL) {
+        cout << root->data << "-";
+        postorderTraversal(root->right);
+        postorderTraversal(root->left);
         return;
     }
 }
@@ -84,16 +102,29 @@ int main() {
     Insert(root, 5);
     Insert(root, 12);
     Insert(root, 25);
-    //Insert(root, 33);
+    Insert(root, 60);
+    Insert(root, 15);
+    Insert(root, 22);
+    Insert(root, 11);
+    Insert(root, 33);
 
     Search(root, 10) ? cout << "Key Found " : cout << "Key Missing ";
 
-    cout << endl;
-    print(root);
+    cout << "\nInorder Traversal :"<<endl;
+    inorderTraversal(root);
     cout << endl;
 
-    cout<<FindMin(root)<<" to "<<FindMax(root)<<endl;
-    cout<<FindHeight(root)<<endl;
+    cout <<"\nPreorder Traversal :"<<endl;
+    preorderTraversal(root);
+    cout<<endl;
+
+    cout <<"\nPostorder Traversal :"<<endl;
+    postorderTraversal(root);
+    cout<<endl;
+    cout<<endl;
+
+    cout << FindMin(root) << " to " << FindMax(root) << endl;
+    cout << FindHeight(root) << endl;
 
     return 0;
 }
