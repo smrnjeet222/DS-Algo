@@ -42,7 +42,7 @@ void Insert(node*& root, int d) {
     }
 }
 
-void DeepestNode(node*& root , node *last) {
+void DeleteDeepestNode(node* root , node *last) {
     if (root == NULL)
         return ;
     node* current = NULL;
@@ -75,12 +75,13 @@ void DeepestNode(node*& root , node *last) {
                 Q.push(current->right);
         } 
     }
-    return ;
+    return;
 }
 
-void Delete(node*& root, int key) {
+void Delete(node* root, int key) {
     if (root == NULL)
-        return;
+        return;  
+         
     queue<node*> Q;
     Q.push(root);
     node* current = NULL;
@@ -100,10 +101,11 @@ void Delete(node*& root, int key) {
     }
     if (keyNode != NULL){
         int x = current->data;
-        DeepestNode(root , current);
-        keyNode->data = x;
+        DeleteDeepestNode(root , current);
+        if(keyNode!=current)
+            keyNode->data = x;
     }
-    return ;
+    return;
 }
 //Sorted Traversal - left-data-rght
 void inorderTraversal(node* root) {
@@ -181,9 +183,9 @@ int main() {
     cout << endl;
     cout << endl;
 
-    Delete(root , 10);
+    Delete(root , 920);
 
-    cout << "\nLevel order Traversal :" << endl;
+    cout << "\nLevel order Traversal After Deletion :" << endl;
     levelorderTraversal(root);
     cout << endl;
     cout << endl;
