@@ -42,71 +42,103 @@ void Insert(node*& root, int d) {
     }
 }
 
-void DeleteDeepestNode(node* root , node *last) {
+void DeleteDeepestNode(node* root, node* last) {
     if (root == NULL)
-        return ;
+        return;
     node* current = NULL;
     queue<node*> Q;
     Q.push(root);
     while (!Q.empty()) {
         current = Q.front();
         Q.pop();
-        if (current == last){
+        if (current == last) {
             current = NULL;
             delete last;
             return;
         }
-        if (current->left != NULL){
-            if (current->left == last){
+        if (current->left != NULL) {
+            if (current->left == last) {
                 current->left = NULL;
                 delete last;
                 return;
-            }
-            else
+            } else
                 Q.push(current->left);
         }
-        if (current->right != NULL){
-            if (current->right == last){
+        if (current->right != NULL) {
+            if (current->right == last) {
                 current->right = NULL;
                 delete last;
                 return;
-            }
-            else
+            } else
                 Q.push(current->right);
-        } 
+        }
     }
     return;
 }
 
 void Delete(node* root, int key) {
     if (root == NULL)
-        return;  
-         
+        return;
+
     queue<node*> Q;
     Q.push(root);
     node* current = NULL;
     node* keyNode = NULL;
-    
+
     while (!Q.empty()) {
         current = Q.front();
         Q.pop();
-    
-        if (current->data == key)
+
+        if (current->data == key) {
             keyNode = current;
+            break;
+            //remove break if want to delete last occurence
+        }
 
         if (current->left != NULL)
             Q.push(current->left);
         if (current->right != NULL)
             Q.push(current->right);
     }
-    if (keyNode != NULL){
+    if (keyNode != NULL) {
         int x = current->data;
-        DeleteDeepestNode(root , current);
-        if(keyNode!=current)
+        DeleteDeepestNode(root, current);
+        if (keyNode != current)
             keyNode->data = x;
     }
     return;
 }
+
+int FindMin(node* root) {
+    // Base case
+    if (root == NULL)
+        return INT_MAX;
+
+    int res = root->data;
+    int lres = FindMin(root->left);
+    int rres = FindMin(root->right);
+    if (lres < res)
+        res = lres;
+    if (rres < res)
+        res = rres;
+    return res;
+}
+
+int FindMax(node* root) {
+    // Base case
+    if (root == NULL)
+        return INT_MIN;
+
+    int res = root->data;
+    int lres = FindMax(root->left);
+    int rres = FindMax(root->right);
+    if (lres > res)
+        res = lres;
+    if (rres > res)
+        res = rres;
+    return res;
+}
+
 //Sorted Traversal - left-data-rght
 void inorderTraversal(node* root) {
     if (root != NULL) {
@@ -124,6 +156,17 @@ void preorderTraversal(node* root) {
         preorderTraversal(root->left);
         preorderTraversal(root->right);
         return;
+    }
+}
+
+bool CheckifBST(node* root , int MinValue , int MaxValue) {
+    if (root == NULL ) {
+        return true;
+    }
+    if ( root->data > MinValue && root->data <= MaxValue && CheckifBST(root->left ,MinValue , root->data ) && CheckifBST(root->right ,root->data, MaxValue )) {
+        return true;
+    } else {
+        return false;
     }
 }
 
@@ -158,17 +201,17 @@ int main() {
     node* root = NULL;
 
     Insert(root, 10);
-    Insert(root, 54);
+    Insert(root, 5);
     Insert(root, 30);
-    Insert(root, 40);
+    Insert(root, 4);
+    Insert(root, 7);
+    Insert(root, 25);
     Insert(root, 60);
-    Insert(root, 20);
-    Insert(root, 90);
-    Insert(root, 50);
+    Insert(root, 26);
 
-    // cout << "\nInorder Traversal :" << endl;
-    // inorderTraversal(root);
-    // cout << endl;
+    cout << "\nInorder Traversal :" << endl;
+    inorderTraversal(root);
+    cout << endl;
 
     // cout << "\nPreorder Traversal :" << endl;
     // preorderTraversal(root);
@@ -182,15 +225,16 @@ int main() {
     levelorderTraversal(root);
     cout << endl;
     cout << endl;
+    cout << "Min-Max : " << FindMin(root) << " - " << FindMax(root) << endl;
 
-    Delete(root , 920);
+    cout << "\nis BST? : " << CheckifBST(root, INT_MIN , INT_MAX) << endl;
+
+    Delete(root, 60);
 
     cout << "\nLevel order Traversal After Deletion :" << endl;
     levelorderTraversal(root);
     cout << endl;
     cout << endl;
-
-
 
     return 0;
 }

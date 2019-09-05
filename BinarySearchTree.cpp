@@ -101,6 +101,17 @@ node* Search(node* root, int key) {
         return Search(root->right, key);
 }
 
+bool CheckifBST(node* root , int MinValue , int MaxValue) {
+    if (root == NULL ) {
+        return true;
+    }
+    if ( root->data > MinValue && root->data <= MaxValue && CheckifBST(root->left ,MinValue , root->data ) && CheckifBST(root->right ,root->data, MaxValue )) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 //Sorted Traversal - left-data-rght
 void inorderTraversal(node* root) {
     if (root != NULL) {
@@ -170,6 +181,8 @@ void AllInfo(node* root) {
 
     cout << "Min to Max : " << FindMin(root)->data << " to " << FindMax(root)->data << endl;
     cout << "Height : " << FindHeight(root) << endl;
+    cout<<"\nis BST? : "<<CheckifBST(root , INT_MIN , INT_MAX)<<endl;
+
 }
 
 int main() {
@@ -186,13 +199,18 @@ int main() {
     Insert(root, 11);
     Insert(root, 33);
 
+
     AllInfo(root);
 
+
+
     Delete(root, 20);
+
 
     cout << "\nAfter Deletion : " << endl;
 
     AllInfo(root);
+
 
     return 0;
 }
