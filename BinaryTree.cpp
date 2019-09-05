@@ -16,7 +16,7 @@ public:
 };
 
 void Insert(node*& root, int d) {
-    if (root == NULL){
+    if (root == NULL) {
         root = new node(d);
         return;
     }
@@ -42,6 +42,69 @@ void Insert(node*& root, int d) {
     }
 }
 
+void DeepestNode(node*& root , node *last) {
+    if (root == NULL)
+        return ;
+    node* current = NULL;
+    queue<node*> Q;
+    Q.push(root);
+    while (!Q.empty()) {
+        current = Q.front();
+        Q.pop();
+        if (current == last){
+            current = NULL;
+            delete last;
+            return;
+        }
+        if (current->left != NULL){
+            if (current->left == last){
+                current->left = NULL;
+                delete last;
+                return;
+            }
+            else
+                Q.push(current->left);
+        }
+        if (current->right != NULL){
+            if (current->right == last){
+                current->right = NULL;
+                delete last;
+                return;
+            }
+            else
+                Q.push(current->right);
+        } 
+    }
+    return ;
+}
+
+void Delete(node*& root, int key) {
+    if (root == NULL)
+        return;
+    queue<node*> Q;
+    Q.push(root);
+    node* current = NULL;
+    node* keyNode = NULL;
+    
+    while (!Q.empty()) {
+        current = Q.front();
+        Q.pop();
+    
+        if (current->data == key)
+            keyNode = current;
+
+        if (current->left != NULL)
+            Q.push(current->left);
+        if (current->right != NULL)
+            Q.push(current->right);
+    }
+    if (keyNode != NULL){
+        int x = current->data;
+        DeepestNode(root , current);
+        keyNode->data = x;
+    }
+    return ;
+}
 //Sorted Traversal - left-data-rght
 void inorderTraversal(node* root) {
     if (root != NULL) {
@@ -65,9 +128,9 @@ void preorderTraversal(node* root) {
 //left-right-data
 void postorderTraversal(node* root) {
     if (root != NULL) {
-        cout << root->data << "-";
-        postorderTraversal(root->right);
         postorderTraversal(root->left);
+        postorderTraversal(root->right);
+        cout << root->data << "-";
         return;
     }
 }
@@ -96,23 +159,36 @@ int main() {
     Insert(root, 54);
     Insert(root, 30);
     Insert(root, 40);
+    Insert(root, 60);
+    Insert(root, 20);
+    Insert(root, 90);
+    Insert(root, 50);
 
-    cout << "\nInorder Traversal :" << endl;
-    inorderTraversal(root);
-    cout << endl;
+    // cout << "\nInorder Traversal :" << endl;
+    // inorderTraversal(root);
+    // cout << endl;
 
-    cout << "\nPreorder Traversal :" << endl;
-    preorderTraversal(root);
-    cout << endl;
+    // cout << "\nPreorder Traversal :" << endl;
+    // preorderTraversal(root);
+    // cout << endl;
 
-    cout << "\nPostorder Traversal :" << endl;
-    postorderTraversal(root);
-    cout << endl;
+    // cout << "\nPostorder Traversal :" << endl;
+    // postorderTraversal(root);
+    // cout << endl;
 
     cout << "\nLevel order Traversal :" << endl;
     levelorderTraversal(root);
     cout << endl;
     cout << endl;
+
+    Delete(root , 10);
+
+    cout << "\nLevel order Traversal :" << endl;
+    levelorderTraversal(root);
+    cout << endl;
+    cout << endl;
+
+
 
     return 0;
 }
