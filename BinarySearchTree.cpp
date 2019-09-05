@@ -124,9 +124,9 @@ void preorderTraversal(node* root) {
 //left-right-data
 void postorderTraversal(node* root) {
     if (root != NULL) {
-        cout << root->data << "-";
-        postorderTraversal(root->right);
         postorderTraversal(root->left);
+        postorderTraversal(root->right);
+        cout << root->data << "-";
         return;
     }
 }
