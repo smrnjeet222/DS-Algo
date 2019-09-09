@@ -101,6 +101,32 @@ node* Search(node* root, int key) {
         return Search(root->right, key);
 }
 
+node* GetSuccessor(node* root , int d){
+    //search node 
+    node* curr  = Search(root , d);
+    if (curr == NULL )
+        return NULL;
+    //if node has rght subtree
+    if (curr->right!= NULL)
+        return FindMin(curr->right);
+    //no rght subtree
+    else{
+        node* succ = NULL;
+        node* ancestor = root;
+        while (ancestor!=curr){
+            if (curr->data < ancestor->data){
+                succ = ancestor;
+                ancestor = ancestor->left;
+            }
+            else 
+                ancestor = ancestor->right;
+        }
+       return succ; 
+    }  
+        
+    
+}
+
 bool CheckifBST(node* root , int MinValue , int MaxValue) {
     if (root == NULL ) {
         return true;
@@ -182,6 +208,7 @@ void AllInfo(node* root) {
     cout << "Min to Max : " << FindMin(root)->data << " to " << FindMax(root)->data << endl;
     cout << "Height : " << FindHeight(root) << endl;
     cout<<"\nis BST? : "<<CheckifBST(root , INT_MIN , INT_MAX)<<endl;
+    cout<<"successor : "<<GetSuccessor(root , 20)->data<<endl;
 
 }
 
