@@ -57,6 +57,21 @@ int FindHeight(node* root) {
     return max(leftHeight, rightHeight) + 1;
 }
 
+int diameter(node* root){
+    if (root == NULL){
+        return 0 ;
+    }
+    int LH = FindHeight(root->left)+1;
+    int RH = FindHeight(root->right)+1;
+    int Ldia = diameter(root->left);
+    int Rdia = diameter(root->right);
+
+    int d = max((LH + RH ) , max(Ldia , Rdia));
+
+    return d;
+
+}
+
 //IMP.
 node* Delete(node*& root, int d) {
     if (root == NULL)
@@ -206,7 +221,8 @@ void AllInfo(node* root) {
     cout << endl;
 
     cout << "Min to Max : " << FindMin(root)->data << " to " << FindMax(root)->data << endl;
-    cout << "Height : " << FindHeight(root) << endl;
+    cout << "Height : " << FindHeight(root);
+    cout << "\nDiameter of BT : "<<diameter(root);
     cout<<"\nis BST? : "<<CheckifBST(root , INT_MIN , INT_MAX)<<endl;
     cout<<"successor : "<<GetSuccessor(root , 20)->data<<endl;
 

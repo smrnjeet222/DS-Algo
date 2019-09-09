@@ -109,6 +109,18 @@ void Delete(node* root, int key) {
     return;
 }
 
+// max edges
+int Height(node* root){
+    if (root == NULL) {
+        return -1;
+    }
+    int leftHeight = Height(root->left);
+    int rightHeight = Height(root->right);
+
+    return max(leftHeight, rightHeight) + 1;
+
+}
+
 int FindMin(node* root) {
     // Base case
     if (root == NULL)
@@ -139,6 +151,32 @@ int FindMax(node* root) {
     return res;
 }
 
+bool CheckifBST(node* root , int MinValue , int MaxValue) {
+    if (root == NULL ) {
+        return true;
+    }
+    if ( root->data > MinValue && root->data <= MaxValue && CheckifBST(root->left ,MinValue , root->data ) && CheckifBST(root->right ,root->data, MaxValue )) {
+        return true;
+    } else {
+        return false;
+    }
+}
+// max edges
+int diameter(node* root){
+    if (root == NULL){
+        return 0 ;
+    }
+    int LH = Height(root->left)+1;
+    int RH = Height(root->right)+1;
+    int Ldia = diameter(root->left);
+    int Rdia = diameter(root->right);
+
+    int d = max((LH + RH ) , max(Ldia , Rdia));
+
+    return d;
+
+}
+
 //Sorted Traversal - left-data-rght
 void inorderTraversal(node* root) {
     if (root != NULL) {
@@ -159,16 +197,6 @@ void preorderTraversal(node* root) {
     }
 }
 
-bool CheckifBST(node* root , int MinValue , int MaxValue) {
-    if (root == NULL ) {
-        return true;
-    }
-    if ( root->data > MinValue && root->data <= MaxValue && CheckifBST(root->left ,MinValue , root->data ) && CheckifBST(root->right ,root->data, MaxValue )) {
-        return true;
-    } else {
-        return false;
-    }
-}
 
 //left-right-data
 void postorderTraversal(node* root) {
@@ -226,7 +254,8 @@ int main() {
     cout << endl;
     cout << endl;
     cout << "Min-Max : " << FindMin(root) << " - " << FindMax(root) << endl;
-
+    cout << "\nHeight of BT : "<<Height(root);
+    cout << "\nDiameter of BT : "<<diameter(root);
     cout << "\nis BST? : " << CheckifBST(root, INT_MIN , INT_MAX) << endl;
 
     Delete(root, 60);
