@@ -177,6 +177,18 @@ int diameter(node* root){
 
 }
 
+int ConvertToSumTree(node* root){
+    if (root == NULL){
+        return 0;
+    }
+
+    int OldVal = root->data;
+
+    root->data  = ConvertToSumTree(root->left) + ConvertToSumTree(root->right);
+
+    return OldVal + root->data;
+}
+
 //Sorted Traversal - left-data-rght
 void inorderTraversal(node* root) {
     if (root != NULL) {
@@ -258,9 +270,10 @@ int main() {
     cout << "\nDiameter of BT : "<<diameter(root);
     cout << "\nis BST? : " << CheckifBST(root, INT_MIN , INT_MAX) << endl;
 
-    Delete(root, 60);
+    Delete(root, 26);
+    ConvertToSumTree(root);
 
-    cout << "\nLevel order Traversal After Deletion :" << endl;
+    cout << "\nLevel order Traversal After Deletion and Sum Tree Conversion:" << endl;
     levelorderTraversal(root);
     cout << endl;
     cout << endl;
