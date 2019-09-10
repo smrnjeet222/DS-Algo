@@ -28,7 +28,6 @@ void Insert(node*& root, int d) {
 }
 
 node* FindMin(node* root) {
-    node* temp = root;
     if (root == NULL) {
         return NULL;
     } else if (root->left == NULL) {
@@ -38,7 +37,6 @@ node* FindMin(node* root) {
 }
 
 node* FindMax(node* root) {
-    node* temp = root;
     if (root == NULL) {
         return NULL;
     } else if (root->right == NULL) {
@@ -57,29 +55,29 @@ int FindHeight(node* root) {
     return max(leftHeight, rightHeight) + 1;
 }
 
-int diameter(node* root){
-    if (root == NULL){
-        return 0 ;
+int diameter(node* root) {
+    if (root == NULL) {
+        return 0;
     }
-    int LH = FindHeight(root->left)+1;
-    int RH = FindHeight(root->right)+1;
+    int LH = FindHeight(root->left) + 1;
+    int RH = FindHeight(root->right) + 1;
     int Ldia = diameter(root->left);
     int Rdia = diameter(root->right);
 
-    int d = max((LH + RH ) , max(Ldia , Rdia));
+    int d = max((LH + RH), max(Ldia, Rdia));
 
     return d;
-
 }
 
 //IMP.
-node* Delete(node*& root, int d) {
+void Delete(node*& root, int d) {
     if (root == NULL)
-        return root;
+        return;
     else if (d < root->data)
-        root->left = Delete(root->left, d);
+        Delete(root->left, d);
     else if (d > root->data)
-        root->right = Delete(root->right, d);
+        Delete(root->right, d);
+        
     //when data is found
     else {
         //Case 1 : no child
@@ -101,10 +99,10 @@ node* Delete(node*& root, int d) {
         else {
             node* temp = FindMin(root->right);
             root->data = temp->data;
-            root->right = Delete(root->right, temp->data);
+            Delete(root->right, temp->data);
         }
     }
-    return root;
+    return ;
 }
 
 node* Search(node* root, int key) {
@@ -116,37 +114,34 @@ node* Search(node* root, int key) {
         return Search(root->right, key);
 }
 
-node* GetSuccessor(node* root , int d){
-    //search node 
-    node* curr  = Search(root , d);
-    if (curr == NULL )
+node* GetSuccessor(node* root, int d) {
+    //search node
+    node* curr = Search(root, d);
+    if (curr == NULL)
         return NULL;
     //if node has rght subtree
-    if (curr->right!= NULL)
+    if (curr->right != NULL)
         return FindMin(curr->right);
     //no rght subtree
-    else{
+    else {
         node* succ = NULL;
         node* ancestor = root;
-        while (ancestor!=curr){
-            if (curr->data < ancestor->data){
+        while (ancestor != curr) {
+            if (curr->data < ancestor->data) {
                 succ = ancestor;
                 ancestor = ancestor->left;
-            }
-            else 
+            } else
                 ancestor = ancestor->right;
         }
-       return succ; 
-    }  
-        
-    
+        return succ;
+    }
 }
 
-bool CheckifBST(node* root , int MinValue , int MaxValue) {
-    if (root == NULL ) {
+bool CheckifBST(node* root, int MinValue, int MaxValue) {
+    if (root == NULL) {
         return true;
     }
-    if ( root->data > MinValue && root->data <= MaxValue && CheckifBST(root->left ,MinValue , root->data ) && CheckifBST(root->right ,root->data, MaxValue )) {
+    if (root->data > MinValue && root->data <= MaxValue && CheckifBST(root->left, MinValue, root->data) && CheckifBST(root->right, root->data, MaxValue)) {
         return true;
     } else {
         return false;
@@ -222,10 +217,9 @@ void AllInfo(node* root) {
 
     cout << "Min to Max : " << FindMin(root)->data << " to " << FindMax(root)->data << endl;
     cout << "Height : " << FindHeight(root);
-    cout << "\nDiameter of BT : "<<diameter(root);
-    cout<<"\nis BST? : "<<CheckifBST(root , INT_MIN , INT_MAX)<<endl;
-    cout<<"successor : "<<GetSuccessor(root , 20)->data<<endl;
-
+    cout << "\nDiameter of BT : " << diameter(root);
+    cout << "\nis BST? : " << CheckifBST(root, INT_MIN, INT_MAX) << endl;
+    cout << "successor : " << GetSuccessor(root, 50)->data << endl;
 }
 
 int main() {
@@ -242,18 +236,13 @@ int main() {
     Insert(root, 11);
     Insert(root, 33);
 
-
     AllInfo(root);
 
-
-
     Delete(root, 20);
-
 
     cout << "\nAfter Deletion : " << endl;
 
     AllInfo(root);
-
 
     return 0;
 }

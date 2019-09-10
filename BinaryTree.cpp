@@ -42,7 +42,7 @@ void Insert(node*& root, int d) {
     }
 }
 
-void DeleteDeepestNode(node* root, node* last) {
+void DeleteDeepestNode(node* &root, node* last) {
     if (root == NULL)
         return;
     node* current = NULL;
@@ -76,12 +76,19 @@ void DeleteDeepestNode(node* root, node* last) {
     return;
 }
 
-void Delete(node* root, int key) {
+ void Delete(node* &root, int key) {
     if (root == NULL)
-        return;
+        return ;
+    if (root->left == NULL && root->right == NULL) {
+        if (root->data == key){
+            root = NULL;
+            return ;
+        }
+    }
 
     queue<node*> Q;
     Q.push(root);
+
     node* current = NULL;
     node* keyNode = NULL;
 
@@ -91,8 +98,6 @@ void Delete(node* root, int key) {
 
         if (current->data == key) {
             keyNode = current;
-            break;
-            //remove break if want to delete last occurence
         }
 
         if (current->left != NULL)
@@ -100,17 +105,17 @@ void Delete(node* root, int key) {
         if (current->right != NULL)
             Q.push(current->right);
     }
+
     if (keyNode != NULL) {
         int x = current->data;
         DeleteDeepestNode(root, current);
-        if (keyNode != current)
-            keyNode->data = x;
+        keyNode->data = x;
     }
-    return;
+    return ;
 }
 
 // max edges
-int Height(node* root){
+int Height(node* root) {
     if (root == NULL) {
         return -1;
     }
@@ -118,7 +123,6 @@ int Height(node* root){
     int rightHeight = Height(root->right);
 
     return max(leftHeight, rightHeight) + 1;
-
 }
 
 int FindMin(node* root) {
@@ -151,40 +155,39 @@ int FindMax(node* root) {
     return res;
 }
 
-bool CheckifBST(node* root , int MinValue , int MaxValue) {
-    if (root == NULL ) {
+bool CheckifBST(node* root, int MinValue, int MaxValue) {
+    if (root == NULL) {
         return true;
     }
-    if ( root->data > MinValue && root->data <= MaxValue && CheckifBST(root->left ,MinValue , root->data ) && CheckifBST(root->right ,root->data, MaxValue )) {
+    if (root->data > MinValue && root->data <= MaxValue && CheckifBST(root->left, MinValue, root->data) && CheckifBST(root->right, root->data, MaxValue)) {
         return true;
     } else {
         return false;
     }
 }
 // max edges
-int diameter(node* root){
-    if (root == NULL){
-        return 0 ;
+int diameter(node* root) {
+    if (root == NULL) {
+        return 0;
     }
-    int LH = Height(root->left)+1;
-    int RH = Height(root->right)+1;
+    int LH = Height(root->left) + 1;
+    int RH = Height(root->right) + 1;
     int Ldia = diameter(root->left);
     int Rdia = diameter(root->right);
 
-    int d = max((LH + RH ) , max(Ldia , Rdia));
+    int d = max((LH + RH), max(Ldia, Rdia));
 
     return d;
-
 }
 
-int ConvertToSumTree(node* root){
-    if (root == NULL){
+int ConvertToSumTree(node* root) {
+    if (root == NULL) {
         return 0;
     }
 
     int OldVal = root->data;
 
-    root->data  = ConvertToSumTree(root->left) + ConvertToSumTree(root->right);
+    root->data = ConvertToSumTree(root->left) + ConvertToSumTree(root->right);
 
     return OldVal + root->data;
 }
@@ -208,7 +211,6 @@ void preorderTraversal(node* root) {
         return;
     }
 }
-
 
 //left-right-data
 void postorderTraversal(node* root) {
@@ -266,14 +268,19 @@ int main() {
     cout << endl;
     cout << endl;
     cout << "Min-Max : " << FindMin(root) << " - " << FindMax(root) << endl;
-    cout << "\nHeight of BT : "<<Height(root);
-    cout << "\nDiameter of BT : "<<diameter(root);
-    cout << "\nis BST? : " << CheckifBST(root, INT_MIN , INT_MAX) << endl;
+    cout << "\nHeight of BT : " << Height(root);
+    cout << "\nDiameter of BT : " << diameter(root);
+    cout << "\nis BST? : " << CheckifBST(root, INT_MIN, INT_MAX) << endl;
 
-    Delete(root, 26);
+    Delete(root, 10);
+    cout << "\nLevel order Traversal After Deletion :" << endl;
+    levelorderTraversal(root);
+    cout << endl;
+    cout << endl;
+
     ConvertToSumTree(root);
 
-    cout << "\nLevel order Traversal After Deletion and Sum Tree Conversion:" << endl;
+    cout << "\nLevel order Traversal After Sum Tree Conversion :" << endl;
     levelorderTraversal(root);
     cout << endl;
     cout << endl;
