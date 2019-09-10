@@ -100,7 +100,6 @@ node* insert(node*& root, int key) {
         return LeftRotate(root);
     }
 
-    /* return the (unchanged) root pointer */
     return root;
 }
 
