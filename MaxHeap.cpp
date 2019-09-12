@@ -8,7 +8,11 @@ private:
     int size;
 
     int parent(int i) {
-        return (i - 1) / 2;
+        if (i == 0) {
+            return 0;
+        } else {
+            return (i - 1) / 2;
+        }
     }
     int Lchild(int i) {
         return 2 * i + 1;
@@ -39,9 +43,15 @@ private:
         int l = Lchild(i);
         int r = Rchild(i);
 
-        int max_index = max(l, r);
+        int max_index = i ;
+        if(arr[l] > arr[i]){
+            max_index = l;
+        }
+        if(arr[r] > arr[max_index]){
+            max_index = r;
+        }
 
-        if (arr[max_index] > arr[i]) {
+        if (max_index != i) {
             swap(arr[max_index], arr[i]);
             ShiftDown(max_index);
         }
@@ -63,10 +73,10 @@ public:
         return size;
     }
     int GetMax() {
-        for(int i = 0 ; i<size ; i++){
-            cout<<arr[i]<<" ";
+        for (int i = 0; i < size; i++) {
+            cout << arr[i] << " ";
         }
-        cout<<endl;
+        cout << endl;
         return arr[0];
     }
     void Insert(int k) {
@@ -90,14 +100,16 @@ public:
         int r = arr[k];
         arr[k] = arr[size - 1];
         size--;
+
         int p = parent(k);
-        if(k==0 || arr[k] < arr[p])
+        if (k == 0 || arr[k] < arr[p])
             ShiftDown(k);
-        else 
+        else
             ShiftUp(k);
-        
+
         return r;
     }
+
 };
 
 int main() {
@@ -109,9 +121,11 @@ int main() {
     H.Insert(5);
     H.Insert(10);
     H.Insert(4);
+    H.Insert(20);
+    H.Insert(30);
+    H.Insert(15);
 
     H.DeleteAt(0);
-
     H.GetMax();
 
     return 0;
