@@ -21,7 +21,7 @@ private:
         return 2 * i + 2;
     }
     bool isLeaf(int i) {
-        if (Lchild(i) > size)
+        if (i >= size)
             return true;
         else
             return false;
@@ -37,17 +37,18 @@ private:
         }
     }
     void ShiftDown(int i) {
-        if (isLeaf(i))
-            return;
-
+        
         int l = Lchild(i);
         int r = Rchild(i);
+
+        if (isLeaf(l))
+            return;
 
         int max_index = i ;
         if(arr[l] > arr[i]){
             max_index = l;
         }
-        if(arr[r] > arr[max_index]){
+        if(!isLeaf(r) && arr[r] > arr[max_index]){
             max_index = r;
         }
 
@@ -55,6 +56,7 @@ private:
             swap(arr[max_index], arr[i]);
             ShiftDown(max_index);
         }
+        return;
     }
 
 public:
@@ -109,10 +111,40 @@ public:
 
         return r;
     }
+    //complexity = log n 
+    void Heapify(int *array, int len){
+        size = len;
+        arr = array;
 
+        for (int i = size/2-1 ; i>=0 ; --i){
+            ShiftDown(i);
+        }
+    }
+    void HeapSort(){
+        int s = size;
+        while(size!=0){
+            int m = arr[0];  
+            swap (arr[0] , arr[size-1]);
+            size--;
+            ShiftDown(0);
+        }
+        size = s;
+    }
 };
 
 int main() {
+    int a[] = {10, 20 ,50, 30, 40 , 5 , 15, 25};
+
+    MaxHeap H2(10);
+    H2.Heapify(a , 8);
+    H2.DeleteAt(1);
+    H2.GetMax();
+    H2.HeapSort();
+    cout<<"\nSorted : "<<endl;
+    H2.GetMax();
+    cout<<endl;
+
+
     MaxHeap H(5);
     H.Insert(2);
     H.Insert(13);
@@ -126,7 +158,10 @@ int main() {
     H.Insert(15);
 
     H.DeleteAt(0);
+    H.HeapSort();
+    cout<<"\nSorted : "<<endl;
     H.GetMax();
+
 
     return 0;
 }
