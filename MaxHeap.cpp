@@ -37,18 +37,17 @@ private:
         }
     }
     void ShiftDown(int i) {
-        
         int l = Lchild(i);
         int r = Rchild(i);
 
         if (isLeaf(l))
             return;
 
-        int max_index = i ;
-        if(arr[l] > arr[i]){
+        int max_index = i;
+        if (arr[l] > arr[i]) {
             max_index = l;
         }
-        if(!isLeaf(r) && arr[r] > arr[max_index]){
+        if (!isLeaf(r) && arr[r] > arr[max_index]) {
             max_index = r;
         }
 
@@ -111,20 +110,21 @@ public:
 
         return r;
     }
-    //complexity = log n 
-    void Heapify(int *array, int len){
+
+    //complexity = log n
+    void Heapify(int *array, int len) {
         size = len;
         arr = array;
 
-        for (int i = size/2-1 ; i>=0 ; --i){
+        for (int i = size / 2 - 1; i >= 0; --i) {
             ShiftDown(i);
         }
     }
-    void HeapSort(){
+    void HeapSort() {
         int s = size;
-        while(size!=0){
-            int m = arr[0];  
-            swap (arr[0] , arr[size-1]);
+        while (size != 0) {
+            int m = arr[0];
+            swap(arr[0], arr[size - 1]);
             size--;
             ShiftDown(0);
         }
@@ -133,19 +133,8 @@ public:
 };
 
 int main() {
-    int a[] = {10, 20 ,50, 30, 40 , 5 , 15, 25};
-
-    MaxHeap H2(10);
-    H2.Heapify(a , 8);
-    H2.DeleteAt(1);
-    H2.GetMax();
-    H2.HeapSort();
-    cout<<"\nSorted : "<<endl;
-    H2.GetMax();
-    cout<<endl;
-
-
     MaxHeap H(5);
+    MaxHeap H2(10);
     H.Insert(2);
     H.Insert(13);
     H.Insert(8);
@@ -159,9 +148,19 @@ int main() {
 
     H.DeleteAt(0);
     H.HeapSort();
-    cout<<"\nSorted : "<<endl;
+    cout << "\nSorted : " << endl;
     H.GetMax();
+    cout << endl;
 
+    int a[] = {10, 20, 50, 30, 40, 5, 15, 25};
+
+    H2.Heapify(a, 8);
+    H2.DeleteAt(1);
+    H2.GetMax();
+    H2.HeapSort();
+    cout << "Heapify-^ \n\nSorted : " << endl;
+    H2.GetMax();
+    cout << endl;
 
     return 0;
 }
