@@ -12,14 +12,13 @@ public:
         data = d;
         left = NULL;
         right = NULL;
-        // int height = 0;
         count = 1;
     }
 };
 
 int Height(node* root) {
     int max_h = 0;
-    if (root!=NULL) {
+    if (root != NULL) {
         int LH = Height(root->left);
         int RH = Height(root->right);
         max_h = max(LH, RH) + 1;
@@ -30,8 +29,16 @@ int Height(node* root) {
 int diff(node* root) {
     int l = Height(root->left);
     int r = Height(root->right);
-    int b = l-r;
+    int b = r - l;
     return b;
+}
+node* FindMin(node* root) {
+    if (root == NULL) {
+        return NULL;
+    } else if (root->left == NULL) {
+        return root;
+    }
+    return (FindMin(root->left));
 }
 
 node* llRotation(node* parent) {
@@ -64,13 +71,13 @@ node* rlRotation(node* parent) {
 
 node* balance(node* root) {
     int b_factor = diff(root);
-    if (b_factor > 1) {
-        if (diff(root->left) > 0)
+    if (b_factor < -1) {
+        if (diff(root->left) < 0)
             root = llRotation(root);
         else
             root = lrRotation(root);
-    } else if (b_factor < -1) {
-        if (diff(root->right) <= 0)
+    } else if (b_factor > 1) {
+        if (diff(root->right) > 0)
             root = rrRotation(root);
         else
             root = rlRotation(root);
@@ -78,7 +85,7 @@ node* balance(node* root) {
     return root;
 }
 
-void Insert(node* &root, int key) {
+void Insert(node*& root, int key) {
     if (root == NULL) {
         root = new node(key);
         return;
@@ -94,19 +101,44 @@ void Insert(node* &root, int key) {
     return;
 }
 
-// void show(node *p, int l) {
-//     int i;
-//     if (p != NULL) {
-//         show(p->right, l+ 1);
-//         cout<<" ";
-//         if (p == root)
-//             cout << "Root -> ";
-//         for (i = 0; i < l && p != root; i++)
-//             cout << " ";
-//             cout << p->data;
-//             show(p->left, l + 1);
-//     }
-// }
+void Delete(node*& root, int d) {
+    if (root == NULL) {
+        return;
+    } else if (d < root->data){
+        Delete(root->left, d);
+        root = balance(root);
+    }
+    else if (d > root->data){
+        Delete(root->right, d);
+        root = balance(root);
+    }
+
+    else{
+        if(root->count > 1){
+            (root->count)--;
+        }
+        else if(!root->left && !root->right){
+            delete(root);
+            root=NULL;
+        }
+        else if(!root->left){
+            node* temp = root;
+            root = root->right;
+            delete(temp);
+        }
+        else if(!root->right){
+            node* temp = root;
+            root = root->left;
+            delete(temp);
+        }
+        else{
+            node* temp = FindMin(root->right);
+            root->data = temp->data;
+            Delete(root->right  , temp->data);
+        }
+    }
+    return;
+}
 
 void levelorderTraversal(node* root) {
     if (root == NULL)
@@ -115,7 +147,8 @@ void levelorderTraversal(node* root) {
     Q.push(root);
     while (!Q.empty()) {
         node* current = Q.front();
-        cout << current->data << "-";
+        cout << current->data << "(" << current->count << ")"
+             << "-";
         if (current->left != NULL)
             Q.push(current->left);
         if (current->right != NULL)
@@ -123,22 +156,38 @@ void levelorderTraversal(node* root) {
         Q.pop();
     }
 }
+void inorderTraversal(node* root) {
+    if (root != NULL) {
+        inorderTraversal(root->left);
+        cout << root->data << "-";
+        inorderTraversal(root->right);
+        return;
+    }
+}
 
 int main() {
     node* root = NULL;
-    Insert(root, 1);
-    Insert(root, 2);
     Insert(root, 3);
     Insert(root, 4);
+    Insert(root, 9);
+    Insert(root, 1);
+    Insert(root, 7);
     Insert(root, 5);
+    Insert(root, 3);
+    Insert(root, 2);
+    Insert(root, 8);
     Insert(root, 6);
     Insert(root, 7);
-    Insert(root, 8);
-    Insert(root, 9);
 
+    Delete(root ,7);
+    Delete(root ,8);
+    Delete(root ,9);
+    Delete(root ,7);
 
     cout << endl;
     levelorderTraversal(root);
+    cout << endl;
+    inorderTraversal(root);
 
     return 0;
 }
