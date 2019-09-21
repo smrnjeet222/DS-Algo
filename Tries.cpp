@@ -15,7 +15,7 @@ public:
     }
 };
 
-void insert(TrieNode* root, string key) {
+void insert(TrieNode* &root, string key) {
     TrieNode* temp = root;
     for (int i = 0; i < key.length(); i++) {
         int index = key[i] - 'a';
@@ -64,7 +64,7 @@ TrieNode* Delete(TrieNode* root , string key , int depth=0){
 
     int index = key[depth] - 'a';
     root->Children[index] = Delete(root->Children[index], key , depth+1);
-    if(isEmpty && root->isEnd==false){
+    if(isEmpty(root) && root->isEnd==false){
         delete(root);
         root=NULL;
     }
@@ -75,8 +75,7 @@ int main() {
     TrieNode* root = new TrieNode();
     string s[] = {"the",
                   "this",
-                  "then",
-                  "here",
+                  "them",
                   "there",
                   "bye",
                   "hello",
