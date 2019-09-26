@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stack>
 #include <queue>
 using namespace std;
 
@@ -201,6 +202,22 @@ void inorderTraversal(node* root) {
         return;
     }
 }
+void inorderStack(node* root){
+    stack<node*> S;
+
+    while( root || !S.empty()){
+        while (root){
+            S.push(root);
+            root = root->left;
+        }
+    
+        root = S.top();
+        S.pop();
+        cout<<root->data<<"-";
+        root = root->right;
+    }
+
+}
 
 //data-left-right
 void preorderTraversal(node* root) {
@@ -209,6 +226,24 @@ void preorderTraversal(node* root) {
         preorderTraversal(root->left);
         preorderTraversal(root->right);
         return;
+    }
+}
+void PreorderStack(node* root){
+    if(!root){
+        return;
+    }
+    stack<node*> S;
+    S.push(root);
+
+    while(!S.empty()){
+        node* temp = S.top();
+        cout<< temp->data<<"-";
+        S.pop();
+
+        if(temp->right)
+            S.push(temp->right);     
+        if(temp->left)
+            S.push(temp->left);
     }
 }
 
