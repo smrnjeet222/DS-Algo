@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stack>
 #include <queue>
 using namespace std;
 
@@ -158,6 +159,23 @@ void inorderTraversal(node* root) {
     }
 }
 
+void inorderStack(node* root){
+    stack<node*> S;
+
+    while( root || !S.empty()){
+        while (root){
+            S.push(root);
+            root = root->left;
+        }
+    
+        root = S.top();
+        S.pop();
+        cout<<root->data<<"-";
+        root = root->right;
+    }
+
+}
+
 //data-left-right
 void preorderTraversal(node* root) {
     if (root != NULL) {
@@ -168,6 +186,26 @@ void preorderTraversal(node* root) {
     }
 }
 
+void PreorderStack(node* root){
+    if(!root){
+        return;
+    }
+    stack<node*> S;
+    S.push(root);
+
+    while(!S.empty()){
+        node* temp = S.top();
+        cout<< temp->data<<"-";
+        S.pop();
+
+        if(temp->right)
+            S.push(temp->right);     
+        if(temp->left)
+            S.push(temp->left);
+    }
+}
+
+
 //left-right-data
 void postorderTraversal(node* root) {
     if (root != NULL) {
@@ -177,6 +215,7 @@ void postorderTraversal(node* root) {
         return;
     }
 }
+
 
 //IMP. spacec. O(n/2)- worst/avg. case
 void levelorderTraversal(node* root) {
@@ -199,11 +238,11 @@ void AllInfo(node* root) {
     Search(root, 11) ? cout << "Key Found " : cout << "Key Missing ";
 
     cout << "\nInorder Traversal :" << endl;
-    inorderTraversal(root);
+    inorderStack(root);
     cout << endl;
 
     cout << "\nPreorder Traversal :" << endl;
-    preorderTraversal(root);
+    PreorderStack(root);
     cout << endl;
 
     cout << "\nPostorder Traversal :" << endl;
