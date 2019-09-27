@@ -1,6 +1,4 @@
-#include <iostream>
-#include <stack>
-#include <queue>
+#include <bits/stdc++.h>
 using namespace std;
 
 class node {
@@ -254,6 +252,23 @@ void postorderTraversal(node* root) {
         postorderTraversal(root->right);
         cout << root->data << "-";
         return;
+    }
+}
+void postorderIterative(node* root){
+    node* temp = root;
+    unordered_set<node*> read;
+    while(temp && read.find(temp) == read.end()){
+        if(temp->left && read.find(temp->left) == read.end()){
+            temp = temp->left;
+        }
+        else if(temp->right && read.find(temp->right)==read.end()){
+            temp = temp->right;
+        }
+        else{
+            cout<<temp->data<<"-";
+            read.insert(temp);
+            temp = root; 
+        }
     }
 }
 
