@@ -1,35 +1,47 @@
 #include <bits/stdc++.h>
+#include <list>
 using namespace std;
 
 //Adjacency List
-void addEdge(vector<int> adj[], int from, int to) {
-    adj[from].push_back(to);
-    adj[to].push_back(from);
-}
+class Graph {
+private:
+    int V;
+    list<int> *adjList;
 
-void printGraph(vector<int> adj[], int V) {
-    for (int i = 0; i < V; i++) {
-        cout << "\nAdjacency list of vertex :" << i << "\nstart";
-        for (auto x : adj[i])
-            cout << "->" << x;
-        cout << endl;
+public:
+    Graph(int v) {
+        V = v;
+        adjList = new list<int>[v];
     }
-}
+
+    void AddEdge(int from, int to, bool bidir = true) {
+        adjList[from].push_back(to);
+        if (bidir) {
+            adjList[to].push_back(from);
+        }
+    }
+
+    void print() {
+        for (int i = 0; i < V; i++) {
+            cout<< i <<"->";
+            for(int node:adjList[i]){
+                cout<< node<<",";
+            }
+            cout<<endl;
+        }
+    }
+};
 
 int main() {
-    int V = 5;
+    Graph g(4);
 
-    //Adjacency list
-    vector<int> adj[V];
-    addEdge(adj, 0, 1);
-    addEdge(adj, 0, 4);
-    addEdge(adj, 1, 2);
-    addEdge(adj, 1, 3);
-    addEdge(adj, 1, 4);
-    addEdge(adj, 2, 3);
-    addEdge(adj, 3, 4);
-
-    printGraph(adj, V);
+    g.AddEdge(0,1);
+    g.AddEdge(0,2);
+    g.AddEdge(0,3);
+    g.AddEdge(1,3);
+    g.AddEdge(3,2);
+    
+    g.print();
 
     return 0;
 }
