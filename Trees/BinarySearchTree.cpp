@@ -121,7 +121,7 @@ node* GetSuccessor(node* root, int d) {
     //if node has rght subtree
     if (curr->right != NULL)
         return FindMin(curr->right);
-    //no rght subtree
+    //no rght subtree hence return ancestor
     else {
         node* succ = NULL;
         node* ancestor = root;
@@ -134,6 +134,20 @@ node* GetSuccessor(node* root, int d) {
         }
         return succ;
     }
+}
+
+node* lowestCommonAncestor(node* root, int x, int y){
+    if(root == NULL) return NULL;
+    if (root->data == x || root->data == y) return root;
+
+    node* leftSearch = lowestCommonAncestor(root->left , x, y);
+    node* rightSearch = lowestCommonAncestor(root->right , x, y);
+
+    if(leftSearch == NULL) return rightSearch;
+    if(rightSearch == NULL) return leftSearch;
+
+    return root;
+
 }
 
 bool CheckifBST(node* root, int MinValue, int MaxValue) {
@@ -273,7 +287,7 @@ void AllInfo(node* root) {
     cout << "Height : " << FindHeight(root);
     cout << "\nDiameter of BT : " << diameter(root);
     cout << "\nis BST? : " << CheckifBST(root, INT_MIN, INT_MAX) << endl;
-    cout << "successor : " << GetSuccessor(root, 50)->data << endl;
+    cout << "successor : " << GetSuccessor(root, 25)->data << endl;
 }
 
 int main() {
@@ -292,7 +306,7 @@ int main() {
 
     AllInfo(root);
 
-    Delete(root, 20);
+    Delete(root, 33);
 
     cout << "\nAfter Deletion : " << endl;
 
