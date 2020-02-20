@@ -124,6 +124,7 @@ int Height(node* root) {
     return max(leftHeight, rightHeight) + 1;
 }
 
+
 int FindMin(node* root) {
     // Base case
     if (root == NULL)
@@ -289,6 +290,63 @@ void levelorderTraversal(node* root) {
     }
 }
 
+void getVerticalOrder(node* root, int hd, map<int, vector<int>> &m){
+    if(root == NULL) return;
+
+    m[hd].push_back(root->data);
+
+    getVerticalOrder(root->left , hd-1 , m);
+    getVerticalOrder(root->right , hd+1 , m);
+}
+// tc : o(nlogn) 
+// though not good as vertical lines 
+// printed are not always in order 
+// since it uses preorder traversal
+void verticalOrderTraversal(node* root){
+    map<int , vector<int>> m;
+    int hd = 0;
+    getVerticalOrder(root, hd, m);
+
+    map< int,vector<int> > :: iterator it; 
+    for (it=m.begin(); it!=m.end(); it++) { 
+        for (int i=0; i<it->second.size(); ++i) 
+            cout <<it->second[i] << " "; 
+        cout<<endl;
+    }
+}
+// here level order is used so vertical lines are printed in order
+void betterVOT(node* root){
+    if(!root) return;
+
+    map<int, vector<int>>  m ;
+    int hd = 0;
+
+    queue<pair<node* , int>> Q;
+    Q.push(make_pair(root, hd));
+    while(!Q.empty()){
+        pair<node* , int> temp = Q.front();
+        Q.pop();
+        hd = temp.second;
+        node* nod = temp.first;
+
+        m[hd].push_back(nod->data);
+
+        if(nod->left) Q.push(make_pair(nod->left, hd-1));
+        if(nod->right) Q.push(make_pair(nod->right, hd+1));
+    }
+
+    map< int,vector<int> > :: iterator it; 
+    for (it=m.begin(); it!=m.end(); it++) { 
+        for (int i=0; i<it->second.size(); ++i) 
+            cout <<it->second[i] << " "; 
+        cout<<endl;
+    }
+}
+
+void topView(node* root){
+
+}
+
 int main() {
     node* root = NULL;
 
@@ -316,6 +374,11 @@ int main() {
     cout << "\nLevel order Traversal :" << endl;
     levelorderTraversal(root);
     cout << endl;
+    cout << "\nVertical order Traversal :" << endl;
+    verticalOrderTraversal(root);
+    cout << endl;
+    cout << "\nBetter Vertical order Traversal :" << endl;
+    betterVOT(root);
     cout << endl;
     cout << "Min-Max : " << FindMin(root) << " - " << FindMax(root) << endl;
     cout << "\nHeight of BT : " << Height(root);
