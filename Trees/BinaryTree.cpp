@@ -344,7 +344,29 @@ void betterVOT(node* root){
 }
 
 void topView(node* root){
+    if(!root) return;
 
+    map<int, vector<int>>  m ;
+    int hd = 0;
+
+    queue<pair<node* , int>> Q;
+    Q.push(make_pair(root, hd));
+    while(!Q.empty()){
+        pair<node* , int> temp = Q.front();
+        Q.pop();
+        hd = temp.second;
+        node* nod = temp.first;
+
+        m[hd].push_back(nod->data);
+
+        if(nod->left) Q.push(make_pair(nod->left, hd-1));
+        if(nod->right) Q.push(make_pair(nod->right, hd+1));
+    }
+
+    map< int,vector<int> > :: iterator it; 
+    for (it=m.begin(); it!=m.end(); it++) { 
+        cout <<it->second[0] << " "; 
+    }
 }
 
 int main() {
