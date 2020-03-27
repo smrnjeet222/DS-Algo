@@ -12,7 +12,7 @@ print("One")
 # ******************
 # ******************
 
-for i in range(1,n+1):
+for i in range(1, n+1):
     print("  "*(n-i) + "**"*(i*2-1))
     print("  "*(n-i) + "**"*(i*2-1))
 
@@ -27,7 +27,7 @@ print("Two")
 # *         *
 
 print(" "*(n-1) + "*")
-for i in range(2,n+1):
+for i in range(2, n+1):
     print(" "*(n-i) + "*" + " "*((i-1)*2-1) + "*")
 
 print()
@@ -42,9 +42,9 @@ print("Three")
 # *******
 
 for i in range(n):
-    if i==0:
+    if i == 0:
         print("*")
-    elif i==(n-1) :
+    elif i == (n-1):
         print("*"*n)
     else:
         print("*" + " "*(i-1) + "*")
@@ -61,14 +61,14 @@ print("Four")
 # *     *     *
 
 for i in range(n):
-    if i==0:
+    if i == 0:
         print(" "*(n-1) + "*")
     else:
-        if i%2==1:
+        if i % 2 == 1:
             print(" "*(n-i-1) + "*" + " "*(i*2-1) + "*")
         else:
-            print(" "*(n-i-1) + "*" + " "*(i-1) +"*"+" "*(i-1) + "*")
-            
+            print(" "*(n-i-1) + "*" + " "*(i-1) + "*"+" "*(i-1) + "*")
+
 print()
 # -------------------------------------------
 print("Five")
@@ -81,18 +81,47 @@ print("Five")
 # *     *     *
 
 for i in range(n):
-    if i==0:
+    if i == 0:
         print(" "*(n-1) + "*")
-    elif i==1:
+    elif i == 1:
         print(" "*(n-2) + "*" + " " + "*")
     else:
-        print(" "*(n-i-1) + "*" + " "*(i-1) +"*"+" "*(i-1) + "*")
+        print(" "*(n-i-1) + "*" + " "*(i-1) + "*"+" "*(i-1) + "*")
 
 print()
 # -------------------------------------------
+print("Six")
+#       *
+#      * *
+#     *   *
+#    *     *
+#   *       *
+#  *         *
+# * * * * * * *
 
+for i in range(n):
+    if i == 0:
+        print(" "*(n-1) + "*")
+    elif i == (n-1):
+        print("* "*n)
+    else:
+        print(" "*(n-i-1) + "*" + " "*(i*2-1) + "*")
 
+print()
+# -------------------------------------------
+print("Seven")
+#       *
+#      ***
+#     * * *
+#    *  *  *
+#   *   *   *
+#  *    *    *
+# * * * * * * *
 
-
-
-
+for i in range(n):
+    if i == 0:
+        print(" "*(n-1) + "*")
+    elif i == (n-1):
+        print("* "*n)
+    else:
+        print(" "*(n-i-1) + "*" + " "*(i-1) + "*" + " "*(i-1) + "*")
