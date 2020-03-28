@@ -125,3 +125,24 @@ for i in range(n):
         print("* "*n)
     else:
         print(" "*(n-i-1) + "*" + " "*(i-1) + "*" + " "*(i-1) + "*")
+print()
+# -------------------------------------------
+print("Eight")
+# * * * * * * * * *
+# * * * *   * * * *
+# * * *       * * *
+# * *           * *
+# *               *
+# * *           * *
+# * * *       * * *
+# * * * *   * * * *
+# * * * * * * * * *
+
+for i in range(-n+1, n):
+    for j in range(-n+1, n):
+        if abs(j)+1 >= n-abs(i):
+            print("* ", end="")
+        else:
+            print("  ", end="")
+
+    print()
