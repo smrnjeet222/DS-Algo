@@ -21,6 +21,14 @@ void BubbleSort(int arr[], int n) {
     cout << "\n";
     return;
 }
+void recurciveBbSort(int arr[], int n){
+    if (n==1) return;
+
+    for(int i = 0 ; i<n; i++){
+        if(arr[i] > arr[i+1]) swap(arr[i] , arr[i+1]);
+    }
+    recurciveBbSort(arr,n-1);
+}
 
 int main() {
     int n = 10;
@@ -30,7 +38,8 @@ int main() {
         cout << arr[i] << " ";
     }
 
-    BubbleSort(arr, n);
+    // BubbleSort(arr, n);
+    recurciveBbSort(arr,n);
     cout << "\nBubble Sort : ";
     for (int i = 0; i < n; i++) {
         cout << arr[i] << " ";
