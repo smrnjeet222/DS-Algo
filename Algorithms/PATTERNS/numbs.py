@@ -153,7 +153,7 @@ print("Nine")
 #  1 2 3 4 5 4 3 2 1
 
 for i in range(1, n+1):
-    print("  "*(n-i) , end=" ")
+    print("  "*(n-i), end=" ")
     for j in range(-i+1, i):
         print(i-abs(j), end=" ")
 
@@ -221,11 +221,11 @@ print("Thirteen")
 #     1 2
 #      1
 
-for i in range(-n+1 , n):
-    print(" "*abs(i) , end=" ")
+for i in range(-n+1, n):
+    print(" "*abs(i), end=" ")
     for j in range(1, n-abs(i)+1):
-        print(j , end=" ")
-    
+        print(j, end=" ")
+
     print()
 print()
 # ----------------------------------------------
@@ -235,11 +235,11 @@ print("Fourteen")
 # 1 2 3     3 2 1
 # 1 2 3 4 4 3 2 1
 
-for i in range(1,n+1):
-    for j in range(-n , n+1):
-        if (n-abs(j)+1)<=i:
+for i in range(1, n+1):
+    for j in range(-n, n+1):
+        if (n-abs(j)+1) <= i:
             print(n-abs(j)+1, end=" ")
-        elif j!=0:
+        elif j != 0:
             print(" ", end=" ")
     print()
 
@@ -252,13 +252,76 @@ print("Fifthteen")
 # 1 2           2 1
 # 1               1
 
-for i in range(n,0,-1):
+for i in range(n, 0, -1):
     for j in range(-n+1, n):
         if n-abs(j) <= i:
             print(n-abs(j), end=" ")
-        else :
-            print(" ",end=" ")
+        else:
+            print(" ", end=" ")
 
     print()
 
+print()
+# ----------------------------------------------
+print("Sixteen")
+# 1 2 3 4 5
+# 2 3 4 5 1
+# 3 4 5 1 2
+# 4 5 1 2 3
+# 5 1 2 3 4
 
+for i in range(1, n+1):
+    for j in range(i, n+i):
+        print((j-1) % n + 1, end=" ")
+    print()
+
+print()
+# ----------------------------------------------
+print("Seventeen")
+# 1 2 3 4 5
+# 2 3 4 5 1
+# 3 4 5 2 1
+# 4 5 3 2 1
+# 5 4 3 2 1
+
+for i in range(1, n+1):
+    for j in range(i, n+i):
+        if j < n+1:
+            print(j, end=" ")
+        else:
+            print(i-1-(j-1) % n, end=" ")
+    print()
+
+print()
+# ----------------------------------------------
+print("Eightteen")
+# 1 3 5 7 9
+# 3 5 7 9 1
+# 5 7 9 1 3
+# 7 9 1 3 5
+# 9 1 3 5 7
+
+for i in range(1, 2*n+1, 2):
+    for j in range(i, 2*n+i, 2):
+        print((j-1) % (2*n) + 1, end=" ")
+    print()
+
+print()
+# ----------------------------------------------
+print("Nineteen")
+#       *
+#      1 2
+#     * * *
+#    1 2 3 4
+#   * * * * *
+#  1 2 3 4 5 6
+# * * * * * * *
+
+for i in range(1, n+1):
+    print(" "*(n-i), end="")
+    if i % 2 == 1:
+        print("* "*i, end="")
+    else:
+        for j in range(1, i+1):
+            print(j, end=" ")
+    print()
