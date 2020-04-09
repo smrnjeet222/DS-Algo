@@ -106,21 +106,26 @@ class BST:
         node_child = num_child(node)
 
         if node_child == 0:
-            if node_parent.lft == node:
-                node_parent.lft = None
+            if node_parent:
+                if node_parent.lft == node:
+                    node_parent.lft = None
+                else:
+                    node_parent.rght = None
             else:
-                node_parent.rght = None
+                self.root = None
 
         if node_child == 1:
             if node.lft:
                 child = node.lft
             else:
                 child = node.rght
-
-            if node_parent.lft == node:
-                node_parent.lft = child
+            if node_parent:
+                if node_parent.lft == node:
+                    node_parent.lft = child
+                else:
+                    node_parent.rght = child
             else:
-                node_parent.rght = child
+                self.root = child
 
             child.parent = node_parent
 
