@@ -2,7 +2,7 @@
 using namespace std;
 
 class node {
-public:
+   public:
     int data;
     node* left;
     node* right;
@@ -104,37 +104,32 @@ void Insert(node*& root, int key) {
 void Delete(node*& root, int d) {
     if (root == NULL) {
         return;
-    } else if (d < root->data){
+    } else if (d < root->data) {
         Delete(root->left, d);
         root = balance(root);
-    }
-    else if (d > root->data){
+    } else if (d > root->data) {
         Delete(root->right, d);
         root = balance(root);
     }
 
-    else{
-        if(root->count > 1){
+    else {
+        if (root->count > 1) {
             (root->count)--;
-        }
-        else if(!root->left && !root->right){
-            delete(root);
-            root=NULL;
-        }
-        else if(!root->left){
+        } else if (!root->left && !root->right) {
+            delete (root);
+            root = NULL;
+        } else if (!root->left) {
             node* temp = root;
             root = root->right;
-            delete(temp);
-        }
-        else if(!root->right){
+            delete (temp);
+        } else if (!root->right) {
             node* temp = root;
             root = root->left;
-            delete(temp);
-        }
-        else{
+            delete (temp);
+        } else {
             node* temp = FindMin(root->right);
             root->data = temp->data;
-            Delete(root->right  , temp->data);
+            Delete(root->right, temp->data);
         }
     }
     return;
@@ -179,10 +174,10 @@ int main() {
     Insert(root, 6);
     Insert(root, 7);
 
-    Delete(root ,7);
-    Delete(root ,8);
-    Delete(root ,9);
-    Delete(root ,7);
+    Delete(root, 7);
+    Delete(root, 8);
+    Delete(root, 9);
+    Delete(root, 7);
 
     cout << endl;
     levelorderTraversal(root);

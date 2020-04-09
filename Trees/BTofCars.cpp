@@ -4,18 +4,18 @@
 using namespace std;
 
 class info {
-public:
+   public:
     string type;
     string name;
     int yr;
 };
 
-class node : public info{
-public:
+class node : public info {
+   public:
     node* left;
     node* right;
 
-    node(string t, string n , int yr ) {
+    node(string t, string n, int yr) {
         this->type = t;
         this->name = n;
         this->yr = yr;
@@ -26,7 +26,7 @@ public:
 
 void Insert(node*& root, string t, string n, int yr) {
     if (root == NULL) {
-        root = new node(t ,n, yr);
+        root = new node(t, n, yr);
         return;
     }
     node* temp = root;
@@ -37,13 +37,13 @@ void Insert(node*& root, string t, string n, int yr) {
         node* temp = Q.front();
         Q.pop();
         if (temp->left == NULL) {
-            temp->left = new node(t ,n, yr);
+            temp->left = new node(t, n, yr);
             break;
         } else {
             Q.push(temp->left);
         }
         if (temp->right == NULL) {
-            temp->right = new node(t ,n, yr);
+            temp->right = new node(t, n, yr);
             break;
         } else {
             Q.push(temp->right);
@@ -54,7 +54,8 @@ void Insert(node*& root, string t, string n, int yr) {
 void inorderTraversal(node* root) {
     if (root != NULL) {
         inorderTraversal(root->left);
-        cout << "("<<root->name<<","<<root->type<<","<<root->yr<< ")" << " - ";
+        cout << "(" << root->name << "," << root->type << "," << root->yr << ")"
+             << " - ";
         inorderTraversal(root->right);
         return;
     }
@@ -63,7 +64,8 @@ void inorderTraversal(node* root) {
 //data-left-right
 void preorderTraversal(node* root) {
     if (root != NULL) {
-        cout << "("<<root->name<<","<<root->type<<","<<root->yr<< ")" << " - ";
+        cout << "(" << root->name << "," << root->type << "," << root->yr << ")"
+             << " - ";
         preorderTraversal(root->left);
         preorderTraversal(root->right);
         return;
@@ -75,7 +77,8 @@ void postorderTraversal(node* root) {
     if (root != NULL) {
         postorderTraversal(root->left);
         postorderTraversal(root->right);
-        cout << "("<<root->name<<","<<root->type<<","<<root->yr<< ")" << " - ";
+        cout << "(" << root->name << "," << root->type << "," << root->yr << ")"
+             << " - ";
         return;
     }
 }

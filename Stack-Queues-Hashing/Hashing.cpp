@@ -4,11 +4,11 @@ using namespace std;
 #define prime 7
 
 class DoubleHash {
-private:
+   private:
     int* hash;
     int curr_size;
 
-public:
+   public:
     DoubleHash() {
         hash = new int[TableSize];
         curr_size = 0;
@@ -33,7 +33,7 @@ public:
             int index2 = hash2(d);
             int i = 1;
             while (true) {
-                int new_index = (index + i*i* index2) % TableSize;
+                int new_index = (index + i * i * index2) % TableSize;
 
                 if (hash[new_index] == -1) {
                     hash[new_index] = d;

@@ -2,7 +2,7 @@
 using namespace std;
 
 class node {
-public:
+   public:
     int data;
     node* left;
     node* right;
@@ -76,7 +76,7 @@ void Delete(node*& root, int d) {
         Delete(root->left, d);
     else if (d > root->data)
         Delete(root->right, d);
-        
+
     //when data is found
     else {
         //Case 1 : no child
@@ -101,7 +101,7 @@ void Delete(node*& root, int d) {
             Delete(root->right, temp->data);
         }
     }
-    return ;
+    return;
 }
 
 node* Search(node* root, int key) {
@@ -136,18 +136,17 @@ node* GetSuccessor(node* root, int d) {
     }
 }
 
-node* lowestCommonAncestor(node* root, int x, int y){
-    if(root == NULL) return NULL;
+node* lowestCommonAncestor(node* root, int x, int y) {
+    if (root == NULL) return NULL;
     if (root->data == x || root->data == y) return root;
 
-    node* leftSearch = lowestCommonAncestor(root->left , x, y);
-    node* rightSearch = lowestCommonAncestor(root->right , x, y);
+    node* leftSearch = lowestCommonAncestor(root->left, x, y);
+    node* rightSearch = lowestCommonAncestor(root->right, x, y);
 
-    if(leftSearch == NULL) return rightSearch;
-    if(rightSearch == NULL) return leftSearch;
+    if (leftSearch == NULL) return rightSearch;
+    if (rightSearch == NULL) return leftSearch;
 
     return root;
-
 }
 
 bool CheckifBST(node* root, int MinValue, int MaxValue) {
@@ -171,21 +170,20 @@ void inorderTraversal(node* root) {
     }
 }
 
-void inorderStack(node* root){
+void inorderStack(node* root) {
     stack<node*> S;
 
-    while( root || !S.empty()){
-        while (root){
+    while (root || !S.empty()) {
+        while (root) {
             S.push(root);
             root = root->left;
         }
-    
+
         root = S.top();
         S.pop();
-        cout<<root->data<<"-";
+        cout << root->data << "-";
         root = root->right;
     }
-
 }
 
 //data-left-right
@@ -198,25 +196,24 @@ void preorderTraversal(node* root) {
     }
 }
 
-void PreorderStack(node* root){
-    if(!root){
+void PreorderStack(node* root) {
+    if (!root) {
         return;
     }
     stack<node*> S;
     S.push(root);
 
-    while(!S.empty()){
+    while (!S.empty()) {
         node* temp = S.top();
-        cout<< temp->data<<"-";
+        cout << temp->data << "-";
         S.pop();
 
-        if(temp->right)
-            S.push(temp->right);     
-        if(temp->left)
+        if (temp->right)
+            S.push(temp->right);
+        if (temp->left)
             S.push(temp->left);
     }
 }
-
 
 //left-right-data
 void postorderTraversal(node* root) {
@@ -228,20 +225,18 @@ void postorderTraversal(node* root) {
     }
 }
 
-void postorderIterative(node* root){
+void postorderIterative(node* root) {
     node* temp = root;
     unordered_set<node*> read;
-    while(temp && read.find(temp) == read.end()){
-        if(temp->left && read.find(temp->left) == read.end()){
+    while (temp && read.find(temp) == read.end()) {
+        if (temp->left && read.find(temp->left) == read.end()) {
             temp = temp->left;
-        }
-        else if(temp->right && read.find(temp->right)==read.end()){
+        } else if (temp->right && read.find(temp->right) == read.end()) {
             temp = temp->right;
-        }
-        else{
-            cout<<temp->data<<"-";
+        } else {
+            cout << temp->data << "-";
             read.insert(temp);
-            temp = root; 
+            temp = root;
         }
     }
 }

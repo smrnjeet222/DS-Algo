@@ -3,13 +3,13 @@
 using namespace std;
 
 class Student {
-public:
+   public:
     string Name;
     int RollNo;
 };
 
 class node : public Student {
-public:
+   public:
     node* next;
     node(string N, int R) {
         Name = N;
@@ -53,8 +53,7 @@ void InsertAtAnyPos(node*& head, string N, int R, int pos) {
         return;
     }
 
-
-     else {
+    else {
         node* temp = head;
         int jump = 1;
         while (pos > jump) {
@@ -107,8 +106,6 @@ void Reverse(node*& head) {
     head = Prevptr;
 }
 
-
-
 void print(node* head) {
     while (head != NULL) {
         cout << head->Name << ":";
@@ -116,11 +113,7 @@ void print(node* head) {
         head = head->next;
     }
     cout << endl;
-   
 }
-
-
-
 
 int main() {
     node* head = NULL;

@@ -111,10 +111,10 @@ print("Seven")
 # *       *
 # * * * * *
 for i in range(n):
-    if(i == 0 or i==(n-1)):
+    if(i == 0 or i == (n-1)):
         print("* "*n)
     else:
-        print("*" + " "*(2*n -3) + "*")
+        print("*" + " "*(2*n - 3) + "*")
 
 print()
 # -------------------------------------------
@@ -128,14 +128,14 @@ print("Eight")
 
 for i in range(n):
     for j in range(n):
-        if i==0 or i==(n-1) or j==0 or j==(n-1):
-            print("* ",end="")
-        elif n%2==1 and j== int(n/2):
-            print("* " , end="")
-        elif n%2==0 and j==((n/2)-1):
-            print(" *" , end="")
+        if i == 0 or i == (n-1) or j == 0 or j == (n-1):
+            print("* ", end="")
+        elif n % 2 == 1 and j == int(n/2):
+            print("* ", end="")
+        elif n % 2 == 0 and j == ((n/2)-1):
+            print(" *", end="")
         else:
-            print("  ",end="")
+            print("  ", end="")
     print()
 
 print()
@@ -150,17 +150,17 @@ print("Nine")
 # * * * * * * *
 
 for i in range(n):
-    if i==0 or i==(n-1) or i==(n-1)//2:
+    if i == 0 or i == (n-1) or i == (n-1)//2:
         print("* "*n)
     else:
-        print("*" + " "*(n-2) + "*" , end="")
+        print("*" + " "*(n-2) + "*", end="")
         print(" "*(n-2) + "*", end="")
         print()
 
 print()
 # -------------------------------------------
 print("Ten")
-# * * * * * * * * * * * * * 
+# * * * * * * * * * * * * *
 # *                       *
 # *   * * * * * * * * *   *
 # *   *               *   *
@@ -177,16 +177,13 @@ print("Ten")
 x = n*2
 for i in range(-x, x+1):
     for j in range(-x, x+1):
-        if(abs(j)%2==0 and abs(i)<=abs(j)) or (abs(j)<=abs(i) and abs(i)%2==0):
-            print("* ",end="")
+        if(abs(j) % 2 == 0 and abs(i) <= abs(j)) or (abs(j) <= abs(i) and abs(i) % 2 == 0):
+            print("* ", end="")
         else:
-            print("  ",end="")
+            print("  ", end="")
     print("")
 
 
 print()
 # -------------------------------------------
-
-
-
 

@@ -2,7 +2,7 @@
 using namespace std;
 
 class MaxHeap {
-private:
+   private:
     int *arr;
     int capacity;
     int size;
@@ -58,7 +58,7 @@ private:
         return;
     }
 
-public:
+   public:
     MaxHeap(int c) {
         arr = new int[c];
         this->capacity = c;

@@ -1,26 +1,24 @@
 #include <iostream>
 using namespace std;
 
-class Animal{
-    private:
-        int voicepitch;
+class Animal {
+   private:
+    int voicepitch;
 
-    public:
-        void makeSound(){
-            cout<<"meooowwwww"<<endl;
-        }
+   public:
+    void makeSound() {
+        cout << "meooowwwww" << endl;
+    }
 };
 
-class Dog : public Animal{
-    public:
-        void makeSound(){
-            cout << "BaaahhhhooowhBaahhhhoowh"<< endl;
-        }
+class Dog : public Animal {
+   public:
+    void makeSound() {
+        cout << "BaaahhhhooowhBaahhhhoowh" << endl;
+    }
 };
 
-
-int main(){
-
+int main() {
     Animal Cat;
     Cat.makeSound();
 
@@ -28,5 +26,4 @@ int main(){
     D1.makeSound();
 
     return 0;
-
 }

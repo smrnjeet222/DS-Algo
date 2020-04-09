@@ -45,21 +45,21 @@ int main() {
         min = I;
         for (int j = 1; j < n; j++) {
             if (near[j] != 0 && cost[j][near[j]] < min) {
-                min = cost[j][near[j]] ;
-                k=j;
+                min = cost[j][near[j]];
+                k = j;
             }
         }
-        t[0][i] = k ; t[1][i] = near[k];
+        t[0][i] = k;
+        t[1][i] = near[k];
         near[k] = 0;
-        for(int j = 1; j<n ; j++){
-            if(near[j]!= 0 && cost[j][k]< cost[j][near[j]]){
+        for (int j = 1; j < n; j++) {
+            if (near[j] != 0 && cost[j][k] < cost[j][near[j]]) {
                 near[j] = k;
             }
         }
     }
-    for (int i = 1; i < n-2; i++)
-    {
-        cout<<"("<<t[0][i]<<","<<t[1][i]<<")"<<endl;
+    for (int i = 1; i < n - 2; i++) {
+        cout << "(" << t[0][i] << "," << t[1][i] << ")" << endl;
     }
     return 0;
 }

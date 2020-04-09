@@ -3,7 +3,7 @@
 using namespace std;
 
 class node {
-public:
+   public:
     string name;
     int employee_id;
     node* prev;
@@ -16,7 +16,6 @@ public:
     }
 };
 
-
 void InsertAtHead(node*& head, string s, int id) {
     node* newnode = new node(s, id);
 
@@ -25,13 +24,13 @@ void InsertAtHead(node*& head, string s, int id) {
         head->prev = newnode;
 
     head = newnode;
-    return ;
+    return;
 }
 
 void DeleteAtEnd(node*& head) {
     node* temp = head;
     if (temp->next == NULL) {
-        return ;
+        return;
     }
     while (temp->next != NULL) {
         temp = temp->next;
@@ -39,7 +38,7 @@ void DeleteAtEnd(node*& head) {
     node* newlast = temp->prev;
     newlast->next = NULL;
     delete temp;
-    return ;
+    return;
 }
 
 void PrintList(node* node) {
@@ -47,7 +46,7 @@ void PrintList(node* node) {
         cout << "Employee ID : " << node->employee_id << " , Employee Name is : " << node->name << endl;
         node = node->next;
     }
-    return ; 
+    return;
 }
 int main() {
     node* head = NULL;

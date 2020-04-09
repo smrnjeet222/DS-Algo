@@ -23,11 +23,9 @@ int main() {
     int arr[] = {2, 3, 4, 58, 10, 13, 16, 17, 20, 23, 25, 29, 33};
     int n = sizeof(arr) / sizeof(arr[0]);
 
-    
-    int index = ipolationSearch(arr, n ,16);
+    int index = ipolationSearch(arr, n, 16);
 
-    index!=-1 ? cout<<"INDEX: "<<index : cout<<"Not Found";
-
+    index != -1 ? cout << "INDEX: " << index : cout << "Not Found";
 
     return 0;
 }

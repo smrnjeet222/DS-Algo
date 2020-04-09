@@ -1,9 +1,9 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
 class node {
-public:
+   public:
     char value;
     node* left;
     node* right;
@@ -26,17 +26,16 @@ node* ConstructTree(char pst[]) {
     stack<node*> st;
     node* temp;
 
-    for (int i = 0; i < strlen(pst) ; i++) {
-        if (!IsOperator(pst[i])){
+    for (int i = 0; i < strlen(pst); i++) {
+        if (!IsOperator(pst[i])) {
             temp = new node(pst[i]);
             st.push(temp);
-        }
-        else{
+        } else {
             temp = new node(pst[i]);
 
-            node* t1 =st.top();
+            node* t1 = st.top();
             st.pop();
-            node* t2 =st.top();
+            node* t2 = st.top();
             st.pop();
 
             temp->right = t1;
@@ -80,15 +79,15 @@ void postorderTraversal(node* root) {
 
 int main() {
     char pst[] = "ab+ef*g*-";
-    node * r = ConstructTree(pst);
+    node* r = ConstructTree(pst);
 
-    cout<<"\n\nPostOrder Traversal : \n";
+    cout << "\n\nPostOrder Traversal : \n";
     postorderTraversal(r);
 
-    cout<<"\n\nPreOrder Traversal : \n";
+    cout << "\n\nPreOrder Traversal : \n";
     preorderTraversal(r);
 
-    cout<<"\n\nInOrder Traversal : \n\n";
+    cout << "\n\nInOrder Traversal : \n\n";
     inorderTraversal(r);
 
     return 0;

@@ -4,7 +4,7 @@ using namespace std;
 const int A_Size = 26;
 
 class TrieNode {
-public:
+   public:
     TrieNode* Children[A_Size];
     bool isEnd;
     TrieNode() {
@@ -15,7 +15,7 @@ public:
     }
 };
 
-void insert(TrieNode* &root, string key) {
+void insert(TrieNode*& root, string key) {
     TrieNode* temp = root;
     for (int i = 0; i < key.length(); i++) {
         int index = key[i] - 'a';
@@ -38,35 +38,35 @@ bool search(TrieNode* root, string key) {
     }
     return (temp && temp->isEnd);
 }
-bool isEmpty(TrieNode* root){
-    for(int i=0 ; i<A_Size ; i++){
-        if(root->Children[i])
+bool isEmpty(TrieNode* root) {
+    for (int i = 0; i < A_Size; i++) {
+        if (root->Children[i])
             return false;
     }
     return true;
 }
 
-TrieNode* Delete(TrieNode* root , string key , int depth=0){
-    if(!root){
+TrieNode* Delete(TrieNode* root, string key, int depth = 0) {
+    if (!root) {
         return root;
     }
 
-    if(depth == key.size()){
-        if(root->isEnd){
+    if (depth == key.size()) {
+        if (root->isEnd) {
             root->isEnd = false;
         }
-        if(isEmpty(root)){
-            delete(root);
+        if (isEmpty(root)) {
+            delete (root);
             root = NULL;
         }
         return root;
     }
 
     int index = key[depth] - 'a';
-    root->Children[index] = Delete(root->Children[index], key , depth+1);
-    if(isEmpty(root) && root->isEnd==false){
-        delete(root);
-        root=NULL;
+    root->Children[index] = Delete(root->Children[index], key, depth + 1);
+    if (isEmpty(root) && root->isEnd == false) {
+        delete (root);
+        root = NULL;
     }
     return root;
 }
@@ -83,19 +83,19 @@ int main() {
                   "his",
                   "hersey",
                   "their"};
-    int n = sizeof(s)/sizeof(s[0]) ;
+    int n = sizeof(s) / sizeof(s[0]);
 
     for (int i = 0; i < n; i++) {
-        insert(root , s[i]);
+        insert(root, s[i]);
     }
 
-    search(root,"the") ? cout<<"Present\n" : cout<<"Not Present\n";
-    Delete(root , "the");
-    search(root,"there") ? cout<<"Present\n" : cout<<"Not Present\n";
-    search(root,"them") ? cout<<"Present\n" : cout<<"Not Present\n";
-    search(root,"here") ? cout<<"Present\n" : cout<<"Not Present\n";
-    Delete(root , "here");
-    search(root,"her") ? cout<<"Present\n" : cout<<"Not Present\n";
+    search(root, "the") ? cout << "Present\n" : cout << "Not Present\n";
+    Delete(root, "the");
+    search(root, "there") ? cout << "Present\n" : cout << "Not Present\n";
+    search(root, "them") ? cout << "Present\n" : cout << "Not Present\n";
+    search(root, "here") ? cout << "Present\n" : cout << "Not Present\n";
+    Delete(root, "here");
+    search(root, "her") ? cout << "Present\n" : cout << "Not Present\n";
 
     return 0;
 }

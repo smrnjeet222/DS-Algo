@@ -2,7 +2,7 @@
 using namespace std;
 
 class node {
-public:
+   public:
     int data;
     node* next;
 
@@ -136,10 +136,10 @@ void SortedInsert(node*& head, int d) {
     }
 }
 
-void SwapFirstLast(node*& head){
+void SwapFirstLast(node*& head) {
     node* p = head;
-    while (p->next->next != head) 
-       p = p->next;
+    while (p->next->next != head)
+        p = p->next;
 
     p->next->next = head->next;
     head->next = p->next;

@@ -7,7 +7,7 @@ struct node {
 };
 
 class LLQueue {
-public:
+   public:
     node* front = NULL;
     node* rear = NULL;
 
@@ -33,8 +33,8 @@ public:
             node* temp = front;
             node* t = rear;
             int x = front->data;
-            if(front == rear){
-                delete(temp);
+            if (front == rear) {
+                delete (temp);
                 front = NULL;
                 rear = NULL;
                 return x;
@@ -74,7 +74,6 @@ int main() {
     Q.push(30);
     Q.push(19);
     Q.push(11);
-
 
     Q.travese();
 

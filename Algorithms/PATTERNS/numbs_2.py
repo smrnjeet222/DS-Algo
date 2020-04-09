@@ -198,9 +198,9 @@ print("Ten")
 # 3 4 5 1 2
 # 2 3 4 5 1
 
-for i in range(1,n+1):
-    for j in range(1,n+1):
-        print((j-i+1) if j>=i else (n-i+j+1), end=' ')
+for i in range(1, n+1):
+    for j in range(1, n+1):
+        print((j-i+1) if j >= i else (n-i+j+1), end=' ')
     print()
 
 print()
@@ -222,8 +222,8 @@ for i in range(-n+1, n):
         if abs(j) < abs(i):
             print("  ", end=' ')
         else:
-            if j<=0:
-                print("%-3d"% t, end='')
+            if j <= 0:
+                print("%-3d" % t, end='')
             else:
                 print("%-3d" % (t//2), end='')
     print()
@@ -242,10 +242,10 @@ print("Twelve")
 #             1
 
 for i in range(-n+1, n):
-    print("   "*abs(i) ,end='')
+    print("   "*abs(i), end='')
     for j in range(n-abs(i), 0, -1):
         print(j, end=" ")
     print("  "*(n-abs(i)-2), end="")
-    for j in range(2 if abs(i)+1==n else 1, n-abs(i) +1):
-        print(j ,end=' ')
+    for j in range(2 if abs(i)+1 == n else 1, n-abs(i) + 1):
+        print(j, end=' ')
     print()

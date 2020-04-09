@@ -5,7 +5,7 @@ using namespace std;
 typedef uintptr_t ut;
 
 class node {
-public:
+   public:
     int data;
     node* next;
 

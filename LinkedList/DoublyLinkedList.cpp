@@ -2,7 +2,7 @@
 using namespace std;
 
 class node {
-public:
+   public:
     int data;
     node* next;
     node* prev;

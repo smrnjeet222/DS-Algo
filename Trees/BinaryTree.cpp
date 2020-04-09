@@ -2,7 +2,7 @@
 using namespace std;
 
 class node {
-public:
+   public:
     int data;
     node* left;
     node* right;
@@ -41,7 +41,7 @@ void Insert(node*& root, int d) {
     }
 }
 
-void DeleteDeepestNode(node* &root, node* last) {
+void DeleteDeepestNode(node*& root, node* last) {
     if (root == NULL)
         return;
     node* current = NULL;
@@ -75,13 +75,13 @@ void DeleteDeepestNode(node* &root, node* last) {
     return;
 }
 
- void Delete(node* &root, int key) {
+void Delete(node*& root, int key) {
     if (root == NULL)
-        return ;
+        return;
     if (root->left == NULL && root->right == NULL) {
-        if (root->data == key){
+        if (root->data == key) {
             root = NULL;
-            return ;
+            return;
         }
     }
 
@@ -110,7 +110,7 @@ void DeleteDeepestNode(node* &root, node* last) {
         DeleteDeepestNode(root, current);
         keyNode->data = x;
     }
-    return ;
+    return;
 }
 
 // max edges
@@ -123,7 +123,6 @@ int Height(node* root) {
 
     return max(leftHeight, rightHeight) + 1;
 }
-
 
 int FindMin(node* root) {
     // Base case
@@ -201,21 +200,20 @@ void inorderTraversal(node* root) {
         return;
     }
 }
-void inorderStack(node* root){
+void inorderStack(node* root) {
     stack<node*> S;
 
-    while( root || !S.empty()){
-        while (root){
+    while (root || !S.empty()) {
+        while (root) {
             S.push(root);
             root = root->left;
         }
-    
+
         root = S.top();
         S.pop();
-        cout<<root->data<<"-";
+        cout << root->data << "-";
         root = root->right;
     }
-
 }
 
 //data-left-right
@@ -227,21 +225,21 @@ void preorderTraversal(node* root) {
         return;
     }
 }
-void PreorderStack(node* root){
-    if(!root){
+void PreorderStack(node* root) {
+    if (!root) {
         return;
     }
     stack<node*> S;
     S.push(root);
 
-    while(!S.empty()){
+    while (!S.empty()) {
         node* temp = S.top();
-        cout<< temp->data<<"-";
+        cout << temp->data << "-";
         S.pop();
 
-        if(temp->right)
-            S.push(temp->right);     
-        if(temp->left)
+        if (temp->right)
+            S.push(temp->right);
+        if (temp->left)
             S.push(temp->left);
     }
 }
@@ -255,20 +253,18 @@ void postorderTraversal(node* root) {
         return;
     }
 }
-void postorderIterative(node* root){
+void postorderIterative(node* root) {
     node* temp = root;
     unordered_set<node*> read;
-    while(temp && read.find(temp) == read.end()){
-        if(temp->left && read.find(temp->left) == read.end()){
+    while (temp && read.find(temp) == read.end()) {
+        if (temp->left && read.find(temp->left) == read.end()) {
             temp = temp->left;
-        }
-        else if(temp->right && read.find(temp->right)==read.end()){
+        } else if (temp->right && read.find(temp->right) == read.end()) {
             temp = temp->right;
-        }
-        else{
-            cout<<temp->data<<"-";
+        } else {
+            cout << temp->data << "-";
             read.insert(temp);
-            temp = root; 
+            temp = root;
         }
     }
 }
@@ -290,82 +286,82 @@ void levelorderTraversal(node* root) {
     }
 }
 
-void getVerticalOrder(node* root, int hd, map<int, vector<int>> &m){
-    if(root == NULL) return;
+void getVerticalOrder(node* root, int hd, map<int, vector<int>>& m) {
+    if (root == NULL) return;
 
     m[hd].push_back(root->data);
 
-    getVerticalOrder(root->left , hd-1 , m);
-    getVerticalOrder(root->right , hd+1 , m);
+    getVerticalOrder(root->left, hd - 1, m);
+    getVerticalOrder(root->right, hd + 1, m);
 }
-// tc : o(nlogn) 
-// though not good as vertical lines 
-// printed are not always in order 
+// tc : o(nlogn)
+// though not good as vertical lines
+// printed are not always in order
 // since it uses preorder traversal
-void verticalOrderTraversal(node* root){
-    map<int , vector<int>> m;
+void verticalOrderTraversal(node* root) {
+    map<int, vector<int>> m;
     int hd = 0;
     getVerticalOrder(root, hd, m);
 
-    map< int,vector<int> > :: iterator it; 
-    for (it=m.begin(); it!=m.end(); it++) { 
-        for (int i=0; i<it->second.size(); ++i) 
-            cout <<it->second[i] << " "; 
-        cout<<endl;
+    map<int, vector<int>>::iterator it;
+    for (it = m.begin(); it != m.end(); it++) {
+        for (int i = 0; i < it->second.size(); ++i)
+            cout << it->second[i] << " ";
+        cout << endl;
     }
 }
 // here level order is used so vertical lines are printed in order
-void betterVOT(node* root){
-    if(!root) return;
+void betterVOT(node* root) {
+    if (!root) return;
 
-    map<int, vector<int>>  m ;
+    map<int, vector<int>> m;
     int hd = 0;
 
-    queue<pair<node* , int>> Q;
+    queue<pair<node*, int>> Q;
     Q.push(make_pair(root, hd));
-    while(!Q.empty()){
-        pair<node* , int> temp = Q.front();
+    while (!Q.empty()) {
+        pair<node*, int> temp = Q.front();
         Q.pop();
         hd = temp.second;
         node* nod = temp.first;
 
         m[hd].push_back(nod->data);
 
-        if(nod->left) Q.push(make_pair(nod->left, hd-1));
-        if(nod->right) Q.push(make_pair(nod->right, hd+1));
+        if (nod->left) Q.push(make_pair(nod->left, hd - 1));
+        if (nod->right) Q.push(make_pair(nod->right, hd + 1));
     }
 
-    map< int,vector<int> > :: iterator it; 
-    for (it=m.begin(); it!=m.end(); it++) { 
-        for (int i=0; i<it->second.size(); ++i) 
-            cout <<it->second[i] << " "; 
-        cout<<endl;
+    map<int, vector<int>>::iterator it;
+    for (it = m.begin(); it != m.end(); it++) {
+        for (int i = 0; i < it->second.size(); ++i)
+            cout << it->second[i] << " ";
+        cout << endl;
     }
 }
 
-void topView(node* root){
-    if(!root) return;
+void topView(node* root) {
+    if (!root) return;
 
-    map<int, vector<int>>  m ;
+    map<int, vector<int>> m;
     int hd = 0;
 
-    queue<pair<node* , int>> Q;
+    queue<pair<node*, int>> Q;
     Q.push(make_pair(root, hd));
-    while(!Q.empty()){
-        pair<node* , int> temp = Q.front();
+    while (!Q.empty()) {
+        pair<node*, int> temp = Q.front();
         Q.pop();
         hd = temp.second;
         node* nod = temp.first;
 
         m[hd].push_back(nod->data);
 
-        if(nod->left) Q.push(make_pair(nod->left, hd-1));
-        if(nod->right) Q.push(make_pair(nod->right, hd+1));
+        if (nod->left) Q.push(make_pair(nod->left, hd - 1));
+        if (nod->right) Q.push(make_pair(nod->right, hd + 1));
     }
 
-    map< int,vector<int> > :: iterator it; 
-    for (it=m.begin(); it!=m.end(); it++) { 
-        cout <<it->second[0] << " "; 
+    map<int, vector<int>>::iterator it;
+    for (it = m.begin(); it != m.end(); it++) {
+        cout << it->second[0] << " ";
     }
 }
 

@@ -1,39 +1,37 @@
+#include <cstring>
 #include <iostream>
 #include <list>
 #include <map>
-#include <cstring>
 
 using namespace std;
 
 template <typename T>
 class Graph {
-private:
+   private:
     map<T, list<T>> adjList;
 
-public:
+   public:
     Graph() {
     }
-    void AddEdge(T from, T to, bool bidir= true){
+    void AddEdge(T from, T to, bool bidir = true) {
         adjList[from].push_back(to);
         if (bidir) {
             adjList[to].push_back(from);
         }
     }
-    void print(){
-        for(auto row:adjList){
+    void print() {
+        for (auto row : adjList) {
             T key = row.first;
-            cout<<key<<"->";
-            for(T elem:row.second){
-                cout<<elem<<",";
+            cout << key << "->";
+            for (T elem : row.second) {
+                cout << elem << ",";
             }
             cout << endl;
         }
     }
-
 };
 
 int main() {
-
     Graph<string> g;
 
     g.AddEdge("Amritsar", "Delhi");
@@ -45,7 +43,6 @@ int main() {
     g.AddEdge("Amritsar", "Siachen");
 
     g.print();
-
 
     return 0;
 }
