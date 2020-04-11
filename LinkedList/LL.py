@@ -43,8 +43,19 @@ class linkedList:
                 return cur_node.data
             cur_idx += 1
 
+    def find(self, data):
+        idx = -1
+        temp = self.head
+        while temp:
+            if temp.data==data:
+                return idx
+            temp = temp.nxt
+            idx+=1
+        else :
+            return -1
+
     def erase(self, index):
-        if index >= self.length():
+        if index >= self.length() or index<0:
             print("Error")
             return
         cur_idx = 0
@@ -54,6 +65,7 @@ class linkedList:
             cur_node = cur_node.nxt
             if cur_idx == index:
                 last_node.nxt = cur_node.nxt
+                del cur_node
                 return
             cur_idx += 1
 
@@ -69,8 +81,10 @@ my_list.append(8)
 my_list.append(13)
 my_list.display()
 print(my_list.length())
-print("Elem at 2 index:", my_list.get(2))
+print("Elem at 2 index :", my_list.get(2))
 
-my_list.erase(1)
+print("Elem at index :", my_list.find(8))
+
+my_list.erase(5)
 
 my_list.display()

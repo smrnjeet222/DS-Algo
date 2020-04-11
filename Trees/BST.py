@@ -149,6 +149,23 @@ class BST:
                 self._isBST(root.lft, min, root.data) and
                 self._isBST(root.rght, root.data, max))
 
+    def levelOrderTraversal(self):
+        result = []
+        self._levOT([self.root], result)
+        return result
+
+    def _levOT(self, cur, res):
+        if cur==[]:
+            return
+        nxtlevel=[]
+        for node in cur:
+            res.append(node.data)
+            if node.lft:
+                nxtlevel.append(node.lft)
+            if node.rght:
+                nxtlevel.append(node.rght)
+        self._levOT(nxtlevel, res)
+
 # __________________________________________________________
 
 
@@ -177,3 +194,5 @@ print("\nAfter deletion : \n")
 my_tree.display()
 
 print("\nIs BST:", my_tree.isBST())
+
+print("Level Order Trav. \n", my_tree.levelOrderTraversal())
