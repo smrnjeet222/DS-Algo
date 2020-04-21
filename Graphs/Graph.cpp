@@ -66,6 +66,26 @@ class Graph {
             temp = parent[temp];
         }
     }
+
+    void DFSutil(int v, bool visited[]) {
+        visited[v] = true;
+        cout << v << " ";
+
+        list<int>::iterator i;
+        for (i = adjList[v].begin(); i != adjList[v].end(); i++)
+            if (!visited[*i])
+                DFSutil(*i, visited);
+
+        return;
+    }
+
+    void DFS(int v) {
+        bool* visited = new bool[V];
+        for (int i = 0; i < V; i++)
+            visited[i] = false;
+
+        DFSutil(v, visited);
+    }
 };
 
 int main() {
@@ -79,9 +99,10 @@ int main() {
     g.AddEdge(3, 5);
     g.AddEdge(3, 4);
 
-    g.BFS(0, 5);
+    // g.BFS(0, 5);
+    g.DFS(4);
     cout << endl;
-    g.print();
+    // g.print();
 
     return 0;
 }
