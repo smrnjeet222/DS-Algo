@@ -4,10 +4,10 @@ def mergeSort(arr):
     while cur_sz < len(arr)-1:
         lft = 0
         while lft < len(arr)-1:
-            mid = lft + cur_sz-1
-            
+            mid = min(lft + cur_sz-1, len(arr)-1)
             rght = min(2*cur_sz + lft-1, len(arr)-1)
-            if mid<len(arr)-1:
+
+            if mid < len(arr)-1:
                 merge(arr, lft, mid, rght)
             lft += cur_sz*2
 

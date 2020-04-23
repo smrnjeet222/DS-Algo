@@ -7,7 +7,7 @@ def cocktail_sort(nums):
                 nums[j], nums[j-1] = nums[j-1], nums[j] 
                 is_swapped = True
 
-        for j in range(i):
+        for j in range(len(nums)-i , i):
             if nums[j] > nums[j+1]:
                 nums[j], nums[j+1] = nums[j+1], nums[j] 
                 is_swapped = True
