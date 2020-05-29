@@ -4,6 +4,5 @@
 README.md
 .vscode/c_cpp_properties.json
 _config.yml
-_config.yml
 *__pycache__
-Recursion/.ipynb_checkpoints/solvereasy-checkpoint.ipynb
+*.ipynb_checkpoints
