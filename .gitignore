@@ -6,3 +6,15 @@ README.md
 _config.yml
 *__pycache__
 *.ipynb_checkpoints
+
+*.java
+*.cs
+*.hs
+*.kt
+*.rb
+*.rs
+*.scala
+*.pdf
+*tests
+*.exe
+*.out
